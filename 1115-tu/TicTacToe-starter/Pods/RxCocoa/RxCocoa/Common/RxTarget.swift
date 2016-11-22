@@ -21,7 +21,11 @@ class RxTarget : NSObject
         self.retainSelf = self
 
 #if TRACE_RESOURCES
+<<<<<<< HEAD
         _ = Resources.incrementTotal()
+=======
+        OSAtomicIncrement32(&resourceCount)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 #endif
 
 #if DEBUG
@@ -38,7 +42,11 @@ class RxTarget : NSObject
 
 #if TRACE_RESOURCES
     deinit {
+<<<<<<< HEAD
         _ = Resources.decrementTotal()
+=======
+        OSAtomicDecrement32(&resourceCount)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 #endif
 }

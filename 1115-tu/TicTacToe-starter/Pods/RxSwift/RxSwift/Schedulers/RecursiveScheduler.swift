@@ -8,7 +8,13 @@
 
 import Foundation
 
+<<<<<<< HEAD
 /// Type erased recursive scheduler.
+=======
+/**
+Type erased recursive scheduler.
+*/
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 class AnyRecursiveScheduler<State> {
     typealias Action =  (State, AnyRecursiveScheduler<State>) -> Void
 
@@ -69,9 +75,17 @@ class AnyRecursiveScheduler<State> {
         }
     }
 
+<<<<<<< HEAD
     /// Schedules an action to be executed recursively.
     ///
     /// - parameter state: State passed to the action to be executed.
+=======
+    /**
+    Schedules an action to be executed recursively.
+    
+    - parameter state: State passed to the action to be executed.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     func schedule(_ state: State) {
             
         var isAdded = false
@@ -118,7 +132,13 @@ class AnyRecursiveScheduler<State> {
     }
 }
 
+<<<<<<< HEAD
 /// Type erased recursive scheduler.
+=======
+/**
+Type erased recursive scheduler.
+*/
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 class RecursiveImmediateScheduler<State> {
     typealias Action =  (_ state: State, _ recurse: (State) -> Void) -> Void
     
@@ -135,11 +155,21 @@ class RecursiveImmediateScheduler<State> {
     
     // immediate scheduling
     
+<<<<<<< HEAD
     /// Schedules an action to be executed recursively.
     ///
     /// - parameter state: State passed to the action to be executed.
     func schedule(_ state: State) {
 
+=======
+    /**
+    Schedules an action to be executed recursively.
+    
+    - parameter state: State passed to the action to be executed.
+    */
+    func schedule(_ state: State) {
+        
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         var isAdded = false
         var isDone = false
         

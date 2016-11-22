@@ -1,6 +1,10 @@
 //
 //  SkipWhile.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Yury Korolev on 10/9/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -14,9 +18,15 @@ class SkipWhileSink<ElementType, O: ObserverType> : Sink<O>, ObserverType where 
     fileprivate let _parent: Parent
     fileprivate var _running = false
 
+<<<<<<< HEAD
     init(parent: Parent, observer: O, cancel: Cancelable) {
         _parent = parent
         super.init(observer: observer, cancel: cancel)
+=======
+    init(parent: Parent, observer: O) {
+        _parent = parent
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 
     func on(_ event: Event<Element>) {
@@ -51,9 +61,15 @@ class SkipWhileSinkWithIndex<ElementType, O: ObserverType> : Sink<O>, ObserverTy
     fileprivate var _index = 0
     fileprivate var _running = false
 
+<<<<<<< HEAD
     init(parent: Parent, observer: O, cancel: Cancelable) {
         _parent = parent
         super.init(observer: observer, cancel: cancel)
+=======
+    init(parent: Parent, observer: O) {
+        _parent = parent
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 
     func on(_ event: Event<Element>) {
@@ -100,6 +116,7 @@ class SkipWhile<Element>: Producer<Element> {
         _predicateWithIndex = predicate
     }
 
+<<<<<<< HEAD
     override func run<O : ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == Element {
         if let _ = _predicate {
             let sink = SkipWhileSink(parent: self, observer: observer, cancel: cancel)
@@ -110,6 +127,18 @@ class SkipWhile<Element>: Producer<Element> {
             let sink = SkipWhileSinkWithIndex(parent: self, observer: observer, cancel: cancel)
             let subscription = _source.subscribe(sink)
             return (sink: sink, subscription: subscription)
+=======
+    override func run<O : ObserverType>(_ observer: O) -> Disposable where O.E == Element {
+        if let _ = _predicate {
+            let sink = SkipWhileSink(parent: self, observer: observer)
+            sink.disposable = _source.subscribe(sink)
+            return sink
+        }
+        else {
+            let sink = SkipWhileSinkWithIndex(parent: self, observer: observer)
+            sink.disposable = _source.subscribe(sink)
+            return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         }
     }
 }

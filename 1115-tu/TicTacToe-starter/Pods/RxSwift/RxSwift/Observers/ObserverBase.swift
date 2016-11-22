@@ -1,6 +1,10 @@
 //
 //  ObserverBase.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 2/15/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -34,6 +38,10 @@ class ObserverBase<ElementType> : Disposable, ObserverType {
     }
 
     func dispose() {
+<<<<<<< HEAD
         _ = AtomicCompareAndSwap(0, 1, &_isStopped)
+=======
+        _isStopped = 1
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }

@@ -16,9 +16,15 @@ class DelaySubscriptionSink<ElementType, O: ObserverType>
     
     private let _parent: Parent
     
+<<<<<<< HEAD
     init(parent: Parent, observer: O, cancel: Cancelable) {
         _parent = parent
         super.init(observer: observer, cancel: cancel)
+=======
+    init(parent: Parent, observer: O) {
+        _parent = parent
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func on(_ event: Event<E>) {
@@ -41,6 +47,7 @@ class DelaySubscription<Element>: Producer<Element> {
         _scheduler = scheduler
     }
     
+<<<<<<< HEAD
     override func run<O : ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == Element {
         let sink = DelaySubscriptionSink(parent: self, observer: observer, cancel: cancel)
         let subscription = _scheduler.scheduleRelative((), dueTime: _dueTime) { _ in
@@ -48,5 +55,14 @@ class DelaySubscription<Element>: Producer<Element> {
         }
 
         return (sink: sink, subscription: subscription)
+=======
+    override func run<O : ObserverType>(_ observer: O) -> Disposable where O.E == Element {
+        let sink = DelaySubscriptionSink(parent: self, observer: observer)
+        sink.disposable = _scheduler.scheduleRelative((), dueTime: _dueTime) { _ in
+            return self._source.subscribe(sink)
+        }
+
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }

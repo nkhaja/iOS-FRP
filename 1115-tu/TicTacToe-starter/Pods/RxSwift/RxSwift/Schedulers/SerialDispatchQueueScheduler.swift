@@ -1,13 +1,20 @@
 //
 //  SerialDispatchQueueScheduler.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 2/8/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
 //
 
 import Foundation
+<<<<<<< HEAD
 import Dispatch
+=======
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 
 /**
 Abstracts the work that needs to be performed on a specific `dispatch_queue_t`. It will make sure 
@@ -30,7 +37,13 @@ public class SerialDispatchQueueScheduler : SchedulerType {
     public typealias TimeInterval = Foundation.TimeInterval
     public typealias Time = Date
     
+<<<<<<< HEAD
     /// - returns: Current time.
+=======
+    /**
+    - returns: Current time.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public var now : Date {
         return Date()
     }
@@ -72,12 +85,22 @@ public class SerialDispatchQueueScheduler : SchedulerType {
     /**
      Constructs new `SerialDispatchQueueScheduler` that wraps on of the global concurrent dispatch queues.
      
+<<<<<<< HEAD
      - parameter qos: Identifier for global dispatch queue with specified quality of service class.
      - parameter internalSerialQueueName: Custom name for internal serial dispatch queue proxy.
      */
     @available(iOS 8, OSX 10.10, *)
     public convenience init(qos: DispatchQoS, internalSerialQueueName: String = "rx.global_dispatch_queue.serial", leeway: DispatchTimeInterval = DispatchTimeInterval.nanoseconds(0)) {
         self.init(queue: DispatchQueue.global(qos: qos.qosClass), internalSerialQueueName: internalSerialQueueName, leeway: leeway)
+=======
+     - parameter globalConcurrentQueueQOS: Identifier for global dispatch queue with specified quality of service class.
+     - parameter internalSerialQueueName: Custom name for internal serial dispatch queue proxy.
+     */
+    @available(iOS 8, OSX 10.10, *)
+    public convenience init(globalConcurrentQueueQOS: DispatchQueueSchedulerQOS, internalSerialQueueName: String = "rx.global_dispatch_queue.serial", leeway: DispatchTimeInterval = DispatchTimeInterval.nanoseconds(0)) {
+        let priority = globalConcurrentQueueQOS.qos
+        self.init(queue: DispatchQueue.global(qos: priority.qosClass), internalSerialQueueName: internalSerialQueueName, leeway: leeway)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     /**

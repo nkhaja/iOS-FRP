@@ -29,12 +29,19 @@ class TableViewDataSourceNotSet
     }
 }
 
+<<<<<<< HEAD
 /// For more information take a look at `DelegateProxyType`.
+=======
+/**
+     For more information take a look at `DelegateProxyType`.
+ */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 public class RxTableViewDataSourceProxy
     : DelegateProxy
     , UITableViewDataSource
     , DelegateProxyType {
 
+<<<<<<< HEAD
     /// Typed parent object.
     public weak fileprivate(set) var tableView: UITableView?
 
@@ -82,6 +89,20 @@ public class RxTableViewDataSourceProxy
     /// Initializes `RxTableViewDataSourceProxy`
     ///
     /// - parameter parentObject: Parent object for delegate proxy.
+=======
+    /**
+     Typed parent object.
+     */
+    public weak fileprivate(set) var tableView: UITableView?
+    
+    fileprivate weak var _requiredMethodsDataSource: UITableViewDataSource? = tableViewDataSourceNotSet
+
+    /**
+     Initializes `RxTableViewDataSourceProxy`
+
+     - parameter parentObject: Parent object for delegate proxy.
+     */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public required init(parentObject: AnyObject) {
         self.tableView = (parentObject as! UITableView)
         super.init(parentObject: parentObject)
@@ -89,48 +110,91 @@ public class RxTableViewDataSourceProxy
 
     // MARK: delegate
 
+<<<<<<< HEAD
     /// Required delegate method implementation.
+=======
+    /**
+    Required delegate method implementation.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (_requiredMethodsDataSource ?? tableViewDataSourceNotSet).tableView(tableView, numberOfRowsInSection: section)
     }
 
+<<<<<<< HEAD
     /// Required delegate method implementation.
+=======
+    /**
+    Required delegate method implementation.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return (_requiredMethodsDataSource ?? tableViewDataSourceNotSet).tableView(tableView, cellForRowAt: indexPath)
     }
     
     // MARK: proxy
 
+<<<<<<< HEAD
     /// For more information take a look at `DelegateProxyType`.
+=======
+    /**
+    For more information take a look at `DelegateProxyType`.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public override class func createProxyForObject(_ object: AnyObject) -> AnyObject {
         let tableView = (object as! UITableView)
 
         return castOrFatalError(tableView.createRxDataSourceProxy())
     }
 
+<<<<<<< HEAD
     /// For more information take a look at `DelegateProxyType`.
+=======
+    /**
+     For more information take a look at `DelegateProxyType`.
+     */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public override class func delegateAssociatedObjectTag() -> UnsafeRawPointer {
         return _pointer(&dataSourceAssociatedTag)
     }
 
+<<<<<<< HEAD
     /// For more information take a look at `DelegateProxyType`.
+=======
+    /**
+     For more information take a look at `DelegateProxyType`.
+     */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public class func setCurrentDelegate(_ delegate: AnyObject?, toObject object: AnyObject) {
         let tableView: UITableView = castOrFatalError(object)
         tableView.dataSource = castOptionalOrFatalError(delegate)
     }
 
+<<<<<<< HEAD
     /// For more information take a look at `DelegateProxyType`.
+=======
+    /**
+     For more information take a look at `DelegateProxyType`.
+     */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public class func currentDelegateFor(_ object: AnyObject) -> AnyObject? {
         let tableView: UITableView = castOrFatalError(object)
         return tableView.dataSource
     }
 
+<<<<<<< HEAD
     /// For more information take a look at `DelegateProxyType`.
+=======
+    /**
+     For more information take a look at `DelegateProxyType`.
+     */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public override func setForwardToDelegate(_ forwardToDelegate: AnyObject?, retainDelegate: Bool) {
         let requiredMethodsDataSource: UITableViewDataSource? = castOptionalOrFatalError(forwardToDelegate)
         _requiredMethodsDataSource = requiredMethodsDataSource ?? tableViewDataSourceNotSet
         super.setForwardToDelegate(forwardToDelegate, retainDelegate: retainDelegate)
     }
+<<<<<<< HEAD
 
     override open func methodInvoked(_ selector: Selector) -> Observable<[Any]> {
         MainScheduler.ensureExecutingOnScheduler()
@@ -193,6 +257,8 @@ public class RxTableViewDataSourceProxy
 
         return super.responds(to: aSelector)
     }
+=======
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 }
 
 #endif

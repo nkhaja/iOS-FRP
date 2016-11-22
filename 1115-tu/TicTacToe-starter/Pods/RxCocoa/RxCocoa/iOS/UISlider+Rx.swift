@@ -16,9 +16,17 @@ import UIKit
 
 extension Reactive where Base: UISlider {
     
+<<<<<<< HEAD
     /// Reactive wrapper for `value` property.
     public var value: ControlProperty<Float> {
         return UIControl.rx.value(
+=======
+    /**
+    Reactive wrapper for `value` property.
+    */
+    public var value: ControlProperty<Float> {
+        return Reactive<UIControl>.value(
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
             self.base,
             getter: { slider in
                 slider.value

@@ -12,7 +12,10 @@ import RxSwift
 class ViewController: UIViewController, BoardViewDelegate {
   
   var board: Variable<Board> = Variable(Board()) //Board() // model
+<<<<<<< HEAD
   var addBoard: ((Board) -> ())?
+=======
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
   weak var boardView: BoardView! // view
 
   @IBOutlet var currentTurnLabel: UILabel!

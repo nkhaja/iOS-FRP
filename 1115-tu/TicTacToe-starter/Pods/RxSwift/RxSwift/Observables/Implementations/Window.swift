@@ -1,6 +1,10 @@
 //
 //  Window.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Junior B. on 29/10/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -28,13 +32,21 @@ class WindowTimeCountSink<Element, O: ObserverType>
     private let _refCountDisposable: RefCountDisposable
     private let _groupDisposable = CompositeDisposable()
     
+<<<<<<< HEAD
     init(parent: Parent, observer: O, cancel: Cancelable) {
+=======
+    init(parent: Parent, observer: O) {
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         _parent = parent
         
         let _ = _groupDisposable.insert(_timerD)
         
         _refCountDisposable = RefCountDisposable(disposable: _groupDisposable)
+<<<<<<< HEAD
         super.init(observer: observer, cancel: cancel)
+=======
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func run() -> Disposable {
@@ -108,7 +120,11 @@ class WindowTimeCountSink<Element, O: ObserverType>
 
         _timerD.disposable = nextTimer
 
+<<<<<<< HEAD
         let scheduledRelative = _parent._scheduler.scheduleRelative(windowId, dueTime: _parent._timeSpan) { previousWindowId in
+=======
+        nextTimer.disposable = _parent._scheduler.scheduleRelative(windowId, dueTime: _parent._timeSpan) { previousWindowId in
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
             
             var newId = 0
             
@@ -127,8 +143,11 @@ class WindowTimeCountSink<Element, O: ObserverType>
             
             return Disposables.create()
         }
+<<<<<<< HEAD
 
         nextTimer.setDisposable(scheduledRelative)
+=======
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }
 
@@ -146,9 +165,16 @@ class WindowTimeCount<Element> : Producer<Observable<Element>> {
         _scheduler = scheduler
     }
     
+<<<<<<< HEAD
     override func run<O : ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == Observable<Element> {
         let sink = WindowTimeCountSink(parent: self, observer: observer, cancel: cancel)
         let subscription = sink.run()
         return (sink: sink, subscription: subscription)
+=======
+    override func run<O : ObserverType>(_ observer: O) -> Disposable where O.E == Observable<Element> {
+        let sink = WindowTimeCountSink(parent: self, observer: observer)
+        sink.disposable = sink.run()
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }

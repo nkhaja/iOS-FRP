@@ -1,6 +1,10 @@
 //
 //  RefCount.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 3/5/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -16,9 +20,15 @@ class RefCountSink<CO: ConnectableObservableType, O: ObserverType>
     
     private let _parent: Parent
 
+<<<<<<< HEAD
     init(parent: Parent, observer: O, cancel: Cancelable) {
         _parent = parent
         super.init(observer: observer, cancel: cancel)
+=======
+    init(parent: Parent, observer: O) {
+        _parent = parent
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func run() -> Disposable {
@@ -76,9 +86,16 @@ class RefCount<CO: ConnectableObservableType>: Producer<CO.E> {
         _source = source
     }
     
+<<<<<<< HEAD
     override func run<O: ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == CO.E {
         let sink = RefCountSink(parent: self, observer: observer, cancel: cancel)
         let subscription = sink.run()
         return (sink: sink, subscription: subscription)
+=======
+    override func run<O: ObserverType>(_ observer: O) -> Disposable where O.E == CO.E {
+        let sink = RefCountSink(parent: self, observer: observer)
+        sink.disposable = sink.run()
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }

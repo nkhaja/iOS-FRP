@@ -1,6 +1,10 @@
 //
 //  Throttle.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 3/22/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -27,10 +31,17 @@ class ThrottleSink<O: ObserverType>
 
     let cancellable = SerialDisposable()
     
+<<<<<<< HEAD
     init(parent: ParentType, observer: O, cancel: Cancelable) {
         _parent = parent
         
         super.init(observer: observer, cancel: cancel)
+=======
+    init(parent: ParentType, observer: O) {
+        _parent = parent
+        
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func run() -> Disposable {
@@ -82,7 +93,11 @@ class ThrottleSink<O: ObserverType>
             let d = SingleAssignmentDisposable()
             self.cancellable.disposable = d
 
+<<<<<<< HEAD
             d.setDisposable(scheduler.scheduleRelative(0, dueTime: dueTime - timeIntervalSinceLast, action: self.propagate))
+=======
+            d.disposable = scheduler.scheduleRelative(0, dueTime: dueTime - timeIntervalSinceLast, action: self.propagate)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         case .error:
             _lastUnsentElement = nil
             forwardOn(event)
@@ -134,10 +149,17 @@ class Throttle<Element> : Producer<Element> {
         _scheduler = scheduler
     }
     
+<<<<<<< HEAD
     override func run<O: ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == Element {
         let sink = ThrottleSink(parent: self, observer: observer, cancel: cancel)
         let subscription = sink.run()
         return (sink: sink, subscription: subscription)
+=======
+    override func run<O: ObserverType>(_ observer: O) -> Disposable where O.E == Element {
+        let sink = ThrottleSink(parent: self, observer: observer)
+        sink.disposable = sink.run()
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
 }

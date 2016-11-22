@@ -14,6 +14,7 @@ import UIKit
 import RxSwift
 #endif
 
+<<<<<<< HEAD
 /// Marks data source as `UITableView` reactive data source enabling it to be used with one of the `bindTo` methods.
 public protocol RxTableViewDataSourceType /*: UITableViewDataSource*/ {
     
@@ -24,6 +25,24 @@ public protocol RxTableViewDataSourceType /*: UITableViewDataSource*/ {
     ///
     /// - parameter tableView: Bound table view.
     /// - parameter observedEvent: Event
+=======
+/**
+Marks data source as `UITableView` reactive data source enabling it to be used with one of the `bindTo` methods.
+*/
+public protocol RxTableViewDataSourceType /*: UITableViewDataSource*/ {
+    
+    /**
+    Type of elements that can be bound to table view.
+    */
+    associatedtype Element
+    
+    /**
+    New observable sequence event observed.
+    
+    - parameter tableView: Bound table view.
+    - parameter observedEvent: Event
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     func tableView(_ tableView: UITableView, observedEvent: Event<Element>) -> Void
 }
 

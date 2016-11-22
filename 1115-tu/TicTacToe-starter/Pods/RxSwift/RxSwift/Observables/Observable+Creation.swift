@@ -1,6 +1,10 @@
 //
 //  Observable+Creation.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 3/21/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -19,6 +23,10 @@ extension Observable {
     - parameter subscribe: Implementation of the resulting observable sequence's `subscribe` method.
     - returns: The observable sequence with the specified implementation for the `subscribe` method.
     */
+<<<<<<< HEAD
+=======
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public static func create(_ subscribe: @escaping (AnyObserver<E>) -> Disposable) -> Observable<E> {
         return AnonymousObservable(subscribe)
     }
@@ -32,6 +40,10 @@ extension Observable {
 
     - returns: An observable sequence with no elements.
     */
+<<<<<<< HEAD
+=======
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public static func empty() -> Observable<E> {
         return Empty<E>()
     }
@@ -45,6 +57,10 @@ extension Observable {
 
     - returns: An observable sequence whose observers will never get called.
     */
+<<<<<<< HEAD
+=======
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public static func never() -> Observable<E> {
         return Never()
     }
@@ -57,6 +73,7 @@ extension Observable {
     - seealso: [just operator on reactivex.io](http://reactivex.io/documentation/operators/just.html)
 
     - parameter element: Single element in the resulting observable sequence.
+<<<<<<< HEAD
     - returns: An observable sequence containing the single specified element.
     */
     public static func just(_ element: E) -> Observable<E> {
@@ -74,6 +91,19 @@ extension Observable {
      */
     public static func just(_ element: E, scheduler: ImmediateSchedulerType) -> Observable<E> {
         return JustScheduled(element: element, scheduler: scheduler)
+=======
+    - parameter: Scheduler to send the single element on.
+    - returns: An observable sequence containing the single specified element.
+    */
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
+    public static func just(_ element: E, scheduler: ImmediateSchedulerType? = nil) -> Observable<E> {
+        if let scheduler = scheduler {
+            return JustScheduled(element: element, scheduler: scheduler)
+        }
+        else {
+            return Just(element: element)
+        }
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 
     // MARK: fail
@@ -85,6 +115,10 @@ extension Observable {
 
     - returns: The observable sequence that terminates with specified error.
     */
+<<<<<<< HEAD
+=======
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public static func error(_ error: Swift.Error) -> Observable<E> {
         return Error(error: error)
     }
@@ -100,6 +134,10 @@ extension Observable {
     - parameter scheduler: Scheduler to send elements on. If `nil`, elements are sent immediatelly on subscription.
     - returns: The observable sequence whose elements are pulled from the given arguments.
     */
+<<<<<<< HEAD
+=======
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public static func of(_ elements: E ..., scheduler: ImmediateSchedulerType = CurrentThreadScheduler.instance) -> Observable<E> {
         return ObservableSequence(elements: elements, scheduler: scheduler)
     }
@@ -114,6 +152,10 @@ extension Observable {
     - parameter observableFactory: Observable factory function to invoke for each observer that subscribes to the resulting sequence.
     - returns: An observable sequence whose observers trigger an invocation of the given observable factory function.
     */
+<<<<<<< HEAD
+=======
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public static func deferred(_ observableFactory: @escaping () throws -> Observable<E>)
         -> Observable<E> {
         return Deferred(observableFactory: observableFactory)
@@ -131,6 +173,10 @@ extension Observable {
     - parameter scheduler: Scheduler on which to run the generator loop.
     - returns: The generated sequence.
     */
+<<<<<<< HEAD
+=======
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public static func generate(initialState: E, condition: @escaping (E) throws -> Bool, scheduler: ImmediateSchedulerType = CurrentThreadScheduler.instance, iterate: @escaping (E) throws -> E) -> Observable<E> {
         return Generate(initialState: initialState, condition: condition, iterate: iterate, resultSelector: { $0 }, scheduler: scheduler)
     }
@@ -144,6 +190,10 @@ extension Observable {
     - parameter scheduler: Scheduler to run the producer loop on.
     - returns: An observable sequence that repeats the given element infinitely.
     */
+<<<<<<< HEAD
+=======
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public static func repeatElement(_ element: E, scheduler: ImmediateSchedulerType = CurrentThreadScheduler.instance) -> Observable<E> {
         return RepeatElement(element: element, scheduler: scheduler)
     }
@@ -157,6 +207,10 @@ extension Observable {
     - parameter observableFactory: Factory function to obtain an observable sequence that depends on the obtained resource.
     - returns: An observable sequence whose lifetime controls the lifetime of the dependent resource object.
     */
+<<<<<<< HEAD
+=======
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public static func using<R: Disposable>(_ resourceFactory: @escaping () throws -> R, observableFactory: @escaping (R) throws -> Observable<E>) -> Observable<E> {
         return Using(resourceFactory: resourceFactory, observableFactory: observableFactory)
     }
@@ -173,11 +227,48 @@ extension Observable where Element : SignedInteger {
     - parameter scheduler: Scheduler to run the generator loop on.
     - returns: An observable sequence that contains a range of sequential integral numbers.
     */
+<<<<<<< HEAD
+=======
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public static func range(start: E, count: E, scheduler: ImmediateSchedulerType = CurrentThreadScheduler.instance) -> Observable<E> {
         return RangeProducer<E>(start: start, count: count, scheduler: scheduler)
     }
 }
 
+<<<<<<< HEAD
+=======
+extension Sequence {
+    /**
+    Converts a sequence to an observable sequence.
+
+    - seealso: [from operator on reactivex.io](http://reactivex.io/documentation/operators/from.html)
+
+    - returns: The observable sequence whose elements are pulled from the given enumerable sequence.
+    */
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
+    @available(*, deprecated, renamed: "Observable.from()")
+    public func toObservable(_ scheduler: ImmediateSchedulerType = CurrentThreadScheduler.instance) -> Observable<Iterator.Element> {
+        return ObservableSequence(elements: Array(self), scheduler: scheduler)
+    }
+}
+
+extension Array {
+    /**
+    Converts a sequence to an observable sequence.
+
+    - seealso: [from operator on reactivex.io](http://reactivex.io/documentation/operators/from.html)
+
+    - returns: The observable sequence whose elements are pulled from the given enumerable sequence.
+    */
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
+    @available(*, deprecated, renamed: "Observable.from()")
+    public func toObservable(_ scheduler: ImmediateSchedulerType = CurrentThreadScheduler.instance) -> Observable<Iterator.Element> {
+        return ObservableSequence(elements: self, scheduler: scheduler)
+    }
+}
+
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 extension Observable {
     /**
      Converts an array to an observable sequence.

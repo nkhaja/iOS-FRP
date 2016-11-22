@@ -1,6 +1,10 @@
 //
 //  ElementAt.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Junior B. on 21/10/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -15,11 +19,19 @@ class ElementAtSink<SourceType, O: ObserverType> : Sink<O>, ObserverType where O
     let _parent: Parent
     var _i: Int
     
+<<<<<<< HEAD
     init(parent: Parent, observer: O, cancel: Cancelable) {
         _parent = parent
         _i = parent._index
         
         super.init(observer: observer, cancel: cancel)
+=======
+    init(parent: Parent, observer: O) {
+        _parent = parent
+        _i = parent._index
+        
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func on(_ event: Event<SourceType>) {
@@ -71,9 +83,16 @@ class ElementAt<SourceType> : Producer<SourceType> {
         self._throwOnEmpty = throwOnEmpty
     }
     
+<<<<<<< HEAD
     override func run<O: ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == SourceType {
         let sink = ElementAtSink(parent: self, observer: observer, cancel: cancel)
         let subscription = _source.subscribeSafe(sink)
         return (sink: sink, subscription: subscription)
+=======
+    override func run<O: ObserverType>(_ observer: O) -> Disposable where O.E == SourceType {
+        let sink = ElementAtSink(parent: self, observer: observer)
+        sink.disposable = _source.subscribeSafe(sink)
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }

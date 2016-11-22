@@ -1,6 +1,10 @@
 //
 //  ShareReplay1.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 10/10/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -53,7 +57,11 @@ final class ShareReplay1<Element>
             let connection = SingleAssignmentDisposable()
             _connection = connection
 
+<<<<<<< HEAD
             connection.setDisposable(self._source.subscribe(self))
+=======
+            connection.disposable = self._source.subscribe(self)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         }
 
         return SubscriptionDisposable(owner: self, key: disposeKey)
@@ -77,6 +85,7 @@ final class ShareReplay1<Element>
     }
 
     func on(_ event: Event<E>) {
+<<<<<<< HEAD
         _synchronized_on(event).on(event)
     }
 
@@ -84,6 +93,15 @@ final class ShareReplay1<Element>
         _lock.lock(); defer { _lock.unlock() }
         if _stopped {
             return Bag()
+=======
+        _lock.lock(); defer { _lock.unlock() }
+        _synchronized_on(event)
+    }
+
+    func _synchronized_on(_ event: Event<E>) {
+        if _stopped {
+            return
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         }
 
         switch event {
@@ -96,6 +114,10 @@ final class ShareReplay1<Element>
             _connection = nil
         }
 
+<<<<<<< HEAD
         return _observers
+=======
+        _observers.on(event)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }

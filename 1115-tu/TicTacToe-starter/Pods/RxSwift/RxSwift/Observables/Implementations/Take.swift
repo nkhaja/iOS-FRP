@@ -18,10 +18,17 @@ class TakeCountSink<ElementType, O: ObserverType> : Sink<O>, ObserverType where 
     
     private var _remaining: Int
     
+<<<<<<< HEAD
     init(parent: Parent, observer: O, cancel: Cancelable) {
         _parent = parent
         _remaining = parent._count
         super.init(observer: observer, cancel: cancel)
+=======
+    init(parent: Parent, observer: O) {
+        _parent = parent
+        _remaining = parent._count
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func on(_ event: Event<E>) {
@@ -61,10 +68,17 @@ class TakeCount<Element>: Producer<Element> {
         _count = count
     }
     
+<<<<<<< HEAD
     override func run<O : ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == Element {
         let sink = TakeCountSink(parent: self, observer: observer, cancel: cancel)
         let subscription = _source.subscribe(sink)
         return (sink: sink, subscription: subscription)
+=======
+    override func run<O : ObserverType>(_ observer: O) -> Disposable where O.E == Element {
+        let sink = TakeCountSink(parent: self, observer: observer)
+        sink.disposable = _source.subscribe(sink)
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }
 
@@ -82,9 +96,15 @@ class TakeTimeSink<ElementType, O: ObserverType>
     
     let _lock = NSRecursiveLock()
     
+<<<<<<< HEAD
     init(parent: Parent, observer: O, cancel: Cancelable) {
         _parent = parent
         super.init(observer: observer, cancel: cancel)
+=======
+    init(parent: Parent, observer: O) {
+        _parent = parent
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func on(_ event: Event<E>) {
@@ -136,9 +156,16 @@ class TakeTime<Element> : Producer<Element> {
         _duration = duration
     }
     
+<<<<<<< HEAD
     override func run<O : ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == Element {
         let sink = TakeTimeSink(parent: self, observer: observer, cancel: cancel)
         let subscription = sink.run()
         return (sink: sink, subscription: subscription)
+=======
+    override func run<O : ObserverType>(_ observer: O) -> Disposable where O.E == Element {
+        let sink = TakeTimeSink(parent: self, observer: observer)
+        sink.disposable = sink.run()
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }

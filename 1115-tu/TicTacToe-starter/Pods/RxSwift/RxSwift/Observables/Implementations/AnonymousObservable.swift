@@ -1,6 +1,10 @@
 //
 //  AnonymousObservable.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 2/8/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -15,8 +19,13 @@ class AnonymousObservableSink<O: ObserverType> : Sink<O>, ObserverType {
     // state
     private var _isStopped: AtomicInt = 0
 
+<<<<<<< HEAD
     override init(observer: O, cancel: Cancelable) {
         super.init(observer: observer, cancel: cancel)
+=======
+    override init(observer: O) {
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 
     func on(_ event: Event<E>) {
@@ -48,9 +57,16 @@ class AnonymousObservable<Element> : Producer<Element> {
         _subscribeHandler = subscribeHandler
     }
 
+<<<<<<< HEAD
     override func run<O : ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == Element {
         let sink = AnonymousObservableSink(observer: observer, cancel: cancel)
         let subscription = sink.run(self)
         return (sink: sink, subscription: subscription)
+=======
+    override func run<O : ObserverType>(_ observer: O) -> Disposable where O.E == Element {
+        let sink = AnonymousObservableSink(observer: observer)
+        sink.disposable = sink.run(self)
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }

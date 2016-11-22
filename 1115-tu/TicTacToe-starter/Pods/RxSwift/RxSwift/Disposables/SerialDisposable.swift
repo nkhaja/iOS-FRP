@@ -1,6 +1,10 @@
 //
 //  SerialDisposable.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 3/12/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -8,7 +12,13 @@
 
 import Foundation
 
+<<<<<<< HEAD
 /// Represents a disposable resource whose underlying disposable resource can be replaced by another disposable resource, causing automatic disposal of the previous underlying disposable resource.
+=======
+/**
+Represents a disposable resource whose underlying disposable resource can be replaced by another disposable resource, causing automatic disposal of the previous underlying disposable resource.
+*/
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 public final class SerialDisposable : DisposeBase, Cancelable {
     private var _lock = SpinLock()
     
@@ -16,12 +26,24 @@ public final class SerialDisposable : DisposeBase, Cancelable {
     private var _current = nil as Disposable?
     private var _isDisposed = false
     
+<<<<<<< HEAD
     /// - returns: Was resource disposed.
+=======
+    /**
+    - returns: Was resource disposed.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public var isDisposed: Bool {
         return _isDisposed
     }
     
+<<<<<<< HEAD
     /// Initializes a new instance of the `SerialDisposable`.
+=======
+    /**
+    Initializes a new instance of the `SerialDisposable`.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     override public init() {
         super.init()
     }
@@ -57,7 +79,13 @@ public final class SerialDisposable : DisposeBase, Cancelable {
         }
     }
     
+<<<<<<< HEAD
     /// Disposes the underlying disposable as well as all future replacements.
+=======
+    /**
+    Disposes the underlying disposable as well as all future replacements.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func dispose() {
         _dispose()?.dispose()
     }

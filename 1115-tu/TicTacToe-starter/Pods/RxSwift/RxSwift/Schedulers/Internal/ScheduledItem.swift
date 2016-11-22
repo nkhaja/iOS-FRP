@@ -1,6 +1,10 @@
 //
 //  ScheduledItem.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 9/2/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -28,7 +32,11 @@ struct ScheduledItem<T>
     }
     
     func invoke() {
+<<<<<<< HEAD
          _disposable.setDisposable(_action(_state))
+=======
+         _disposable.disposable = _action(_state)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func dispose() {

@@ -1,6 +1,10 @@
 //
 //  SkipUntil.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Yury Korolev on 10/3/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -26,7 +30,11 @@ class SkipUntilSinkOther<ElementType, Other, O: ObserverType>
     init(parent: Parent) {
         _parent = parent
         #if TRACE_RESOURCES
+<<<<<<< HEAD
             let _ = Resources.incrementTotal()
+=======
+            let _ = AtomicIncrement(&resourceCount)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         #endif
     }
 
@@ -49,7 +57,11 @@ class SkipUntilSinkOther<ElementType, Other, O: ObserverType>
     
     #if TRACE_RESOURCES
     deinit {
+<<<<<<< HEAD
         let _ = Resources.decrementTotal()
+=======
+        let _ = AtomicDecrement(&resourceCount)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     #endif
 
@@ -70,9 +82,15 @@ class SkipUntilSink<ElementType, Other, O: ObserverType>
     
     fileprivate let _sourceSubscription = SingleAssignmentDisposable()
 
+<<<<<<< HEAD
     init(parent: Parent, observer: O, cancel: Cancelable) {
         _parent = parent
         super.init(observer: observer, cancel: cancel)
+=======
+    init(parent: Parent, observer: O) {
+        _parent = parent
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func on(_ event: Event<E>) {
@@ -100,8 +118,13 @@ class SkipUntilSink<ElementType, Other, O: ObserverType>
         let sourceSubscription = _parent._source.subscribe(self)
         let otherObserver = SkipUntilSinkOther(parent: self)
         let otherSubscription = _parent._other.subscribe(otherObserver)
+<<<<<<< HEAD
         _sourceSubscription.setDisposable(sourceSubscription)
         otherObserver._subscription.setDisposable(otherSubscription)
+=======
+        _sourceSubscription.disposable = sourceSubscription
+        otherObserver._subscription.disposable = otherSubscription
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         
         return Disposables.create(_sourceSubscription, otherObserver._subscription)
     }
@@ -117,9 +140,16 @@ class SkipUntil<Element, Other>: Producer<Element> {
         _other = other
     }
     
+<<<<<<< HEAD
     override func run<O : ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == Element {
         let sink = SkipUntilSink(parent: self, observer: observer, cancel: cancel)
         let subscription = sink.run()
         return (sink: sink, subscription: subscription)
+=======
+    override func run<O : ObserverType>(_ observer: O) -> Disposable where O.E == Element {
+        let sink = SkipUntilSink(parent: self, observer: observer)
+        sink.disposable = sink.run()
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }

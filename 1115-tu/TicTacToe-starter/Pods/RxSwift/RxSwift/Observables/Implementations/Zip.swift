@@ -25,11 +25,19 @@ class ZipSink<O: ObserverType> : Sink<O>, ZipSinkProtocol {
     // state
     private var _isDone: [Bool]
     
+<<<<<<< HEAD
     init(arity: Int, observer: O, cancel: Cancelable) {
         _isDone = [Bool](repeating: false, count: arity)
         _arity = arity
         
         super.init(observer: observer, cancel: cancel)
+=======
+    init(arity: Int, observer: O) {
+        _isDone = [Bool](repeating: false, count: arity)
+        _arity = arity
+        
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 
     func getResult() throws -> Element {

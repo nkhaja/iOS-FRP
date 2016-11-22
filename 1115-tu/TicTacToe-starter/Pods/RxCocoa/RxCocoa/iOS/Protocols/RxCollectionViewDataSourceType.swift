@@ -14,6 +14,7 @@ import UIKit
 import RxSwift
 #endif
 
+<<<<<<< HEAD
 /// Marks data source as `UICollectionView` reactive data source enabling it to be used with one of the `bindTo` methods.
 public protocol RxCollectionViewDataSourceType /*: UICollectionViewDataSource*/ {
     
@@ -24,6 +25,24 @@ public protocol RxCollectionViewDataSourceType /*: UICollectionViewDataSource*/ 
     ///
     /// - parameter collectionView: Bound collection view.
     /// - parameter observedEvent: Event
+=======
+/**
+Marks data source as `UICollectionView` reactive data source enabling it to be used with one of the `bindTo` methods.
+*/
+public protocol RxCollectionViewDataSourceType /*: UICollectionViewDataSource*/ {
+    
+    /**
+    Type of elements that can be bound to collection view.
+    */
+    associatedtype Element
+    
+    /**
+    New observable sequence event observed.
+    
+    - parameter collectionView: Bound collection view.
+    - parameter observedEvent: Event
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     func collectionView(_ collectionView: UICollectionView, observedEvent: Event<Element>) -> Void
 }
 

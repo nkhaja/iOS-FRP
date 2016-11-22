@@ -1,6 +1,10 @@
 //
 //  CombineLatest.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 3/21/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -27,12 +31,20 @@ class CombineLatestSink<O: ObserverType>
     private var _hasValue: [Bool]
     private var _isDone: [Bool]
    
+<<<<<<< HEAD
     init(arity: Int, observer: O, cancel: Cancelable) {
+=======
+    init(arity: Int, observer: O) {
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         _arity = arity
         _hasValue = [Bool](repeating: false, count: arity)
         _isDone = [Bool](repeating: false, count: arity)
         
+<<<<<<< HEAD
         super.init(observer: observer, cancel: cancel)
+=======
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func getResult() throws -> Element {

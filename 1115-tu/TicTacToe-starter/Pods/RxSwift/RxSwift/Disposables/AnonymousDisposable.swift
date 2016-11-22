@@ -1,6 +1,10 @@
 //
 //  AnonymousDisposable.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 2/15/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -8,24 +12,49 @@
 
 import Foundation
 
+<<<<<<< HEAD
 /// Represents an Action-based disposable.
 ///
 /// When dispose method is called, disposal action will be dereferenced.
 fileprivate final class AnonymousDisposable : DisposeBase, Cancelable {
+=======
+/**
+Represents an Action-based disposable.
+
+When dispose method is called, disposal action will be dereferenced.
+*/
+public final class AnonymousDisposable : DisposeBase, Cancelable {
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public typealias DisposeAction = () -> Void
 
     private var _isDisposed: AtomicInt = 0
     private var _disposeAction: DisposeAction?
 
+<<<<<<< HEAD
     /// - returns: Was resource disposed.
+=======
+    /**
+    - returns: Was resource disposed.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public var isDisposed: Bool {
         return _isDisposed == 1
     }
 
+<<<<<<< HEAD
     /// Constructs a new disposable with the given action used for disposal.
     ///
     /// - parameter disposeAction: Disposal action which will be run upon calling `dispose`.
     fileprivate init(_ disposeAction: @escaping DisposeAction) {
+=======
+    /**
+    Constructs a new disposable with the given action used for disposal.
+
+    - parameter disposeAction: Disposal action which will be run upon calling `dispose`.
+    */
+    @available(*, deprecated, renamed: "Disposables.create")
+    public init(_ disposeAction: @escaping DisposeAction) {
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         _disposeAction = disposeAction
         super.init()
     }
@@ -36,10 +65,19 @@ fileprivate final class AnonymousDisposable : DisposeBase, Cancelable {
         super.init()
     }
     
+<<<<<<< HEAD
     /// Calls the disposal action if and only if the current instance hasn't been disposed yet.
     ///
     /// After invoking disposal action, disposal action will be dereferenced.
     fileprivate func dispose() {
+=======
+    /**
+    Calls the disposal action if and only if the current instance hasn't been disposed yet.
+
+    After invoking disposal action, disposal action will be dereferenced.
+    */
+    public func dispose() {
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         if AtomicCompareAndSwap(0, 1, &_isDisposed) {
             assert(_isDisposed == 1)
 
@@ -51,12 +89,23 @@ fileprivate final class AnonymousDisposable : DisposeBase, Cancelable {
     }
 }
 
+<<<<<<< HEAD
 extension Disposables {
     
     /// Constructs a new disposable with the given action used for disposal.
     ///
     /// - parameter dispose: Disposal action which will be run upon calling `dispose`.
     public static func create(with dispose: @escaping () -> ()) -> Cancelable {
+=======
+public extension Disposables {
+    
+    /**
+     Constructs a new disposable with the given action used for disposal.
+     
+     - parameter dispose: Disposal action which will be run upon calling `dispose`.
+     */
+    static func create(with dispose: @escaping () -> ()) -> Cancelable {
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         return AnonymousDisposable(disposeAction: dispose)
     }
     

@@ -1,6 +1,10 @@
 //
 //  Reduce.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 4/1/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -15,11 +19,19 @@ class ReduceSink<SourceType, AccumulateType, O: ObserverType> : Sink<O>, Observe
     private let _parent: Parent
     private var _accumulation: AccumulateType
     
+<<<<<<< HEAD
     init(parent: Parent, observer: O, cancel: Cancelable) {
         _parent = parent
         _accumulation = parent._seed
         
         super.init(observer: observer, cancel: cancel)
+=======
+    init(parent: Parent, observer: O) {
+        _parent = parent
+        _accumulation = parent._seed
+        
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func on(_ event: Event<SourceType>) {
@@ -65,10 +77,18 @@ class Reduce<SourceType, AccumulateType, ResultType> : Producer<ResultType> {
         _accumulator = accumulator
         _mapResult = mapResult
     }
+<<<<<<< HEAD
 
     override func run<O: ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == ResultType {
         let sink = ReduceSink(parent: self, observer: observer, cancel: cancel)
         let subscription = _source.subscribe(sink)
         return (sink: sink, subscription: subscription)
+=======
+    
+    override func run<O: ObserverType>(_ observer: O) -> Disposable where O.E == ResultType {
+        let sink = ReduceSink(parent: self, observer: observer)
+        sink.disposable = _source.subscribe(sink)
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }

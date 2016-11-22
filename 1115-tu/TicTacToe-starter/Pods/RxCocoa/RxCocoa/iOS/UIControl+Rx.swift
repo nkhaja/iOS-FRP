@@ -16,6 +16,7 @@ import UIKit
 
 extension Reactive where Base: UIControl {
     
+<<<<<<< HEAD
     /// Bindable sink for `enabled` property.
     public var isEnabled: UIBindingObserver<Base, Bool> {
         return UIBindingObserver(UIElement: self.base) { control, value in
@@ -33,6 +34,31 @@ extension Reactive where Base: UIControl {
     /// Reactive wrapper for target action pattern.
     ///
     /// - parameter controlEvents: Filter for observed event types.
+=======
+    /**
+    Bindable sink for `enabled` property.
+    */
+    public var enabled: AnyObserver<Bool> {
+        return UIBindingObserver(UIElement: self.base) { control, value in
+            control.isEnabled = value
+        }.asObserver()
+    }
+
+    /**
+     Bindable sink for `selected` property.
+     */
+    public var selected: AnyObserver<Bool> {
+        return UIBindingObserver(UIElement: self.base) { control, selected in
+            control.isSelected = selected
+        }.asObserver()
+    }
+
+    /**
+    Reactive wrapper for target action pattern.
+    
+    - parameter controlEvents: Filter for observed event types.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func controlEvent(_ controlEvents: UIControlEvents) -> ControlEvent<Void> {
         let source: Observable<Void> = Observable.create { [weak control = self.base] observer in
             MainScheduler.ensureExecutingOnScheduler()
@@ -53,9 +79,17 @@ extension Reactive where Base: UIControl {
         return ControlEvent(events: source)
     }
 
+<<<<<<< HEAD
     /// You might be wondering why the ugly `as!` casts etc, well, for some reason if
     /// Swift compiler knows C is UIControl type and optimizations are turned on, it will crash.
     static func value<C: NSObject, T>(_ control: C, getter: @escaping (C) -> T, setter: @escaping (C, T) -> Void) -> ControlProperty<T> {
+=======
+    /**
+     You might be wondering why the ugly `as!` casts etc, well, for some reason if 
+     Swift compiler knows C is UIControl type and optimizations are turned on, it will crash.
+    */
+    static func value<C: NSObject, T: Equatable>(_ control: C, getter: @escaping (C) -> T, setter: @escaping (C, T) -> Void) -> ControlProperty<T> {
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         let source: Observable<T> = Observable.create { [weak weakControl = control] observer in
                 guard let control = weakControl else {
                     observer.on(.completed)

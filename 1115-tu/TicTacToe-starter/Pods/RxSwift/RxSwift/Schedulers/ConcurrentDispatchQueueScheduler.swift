@@ -7,11 +7,20 @@
 //
 
 import Foundation
+<<<<<<< HEAD
 import Dispatch
 
 /// Abstracts the work that needs to be performed on a specific `dispatch_queue_t`. You can also pass a serial dispatch queue, it shouldn't cause any problems.
 ///
 /// This scheduler is suitable when some work needs to be performed in background.
+=======
+
+/**
+Abstracts the work that needs to be performed on a specific `dispatch_queue_t`. You can also pass a serial dispatch queue, it shouldn't cause any problems.
+
+This scheduler is suitable when some work needs to be performed in background.
+*/
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 public class ConcurrentDispatchQueueScheduler: SchedulerType {
     public typealias TimeInterval = Foundation.TimeInterval
     public typealias Time = Date
@@ -22,13 +31,22 @@ public class ConcurrentDispatchQueueScheduler: SchedulerType {
 
     let configuration: DispatchQueueConfiguration
     
+<<<<<<< HEAD
     /// Constructs new `ConcurrentDispatchQueueScheduler` that wraps `queue`.
     ///
     /// - parameter queue: Target dispatch queue.
+=======
+    /**
+    Constructs new `ConcurrentDispatchQueueScheduler` that wraps `queue`.
+    
+    - parameter queue: Target dispatch queue.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public init(queue: DispatchQueue, leeway: DispatchTimeInterval = DispatchTimeInterval.nanoseconds(0)) {
         configuration = DispatchQueueConfiguration(queue: queue, leeway: leeway)
     }
     
+<<<<<<< HEAD
     /// Convenience init for scheduler that wraps one of the global concurrent dispatch queues.
     ///
     /// - parameter qos: Target global dispatch queue, by quality of service class.
@@ -37,6 +55,19 @@ public class ConcurrentDispatchQueueScheduler: SchedulerType {
         self.init(queue: DispatchQueue(
             label: "rxswift.queue.\(qos)",
             qos: qos,
+=======
+    /**
+     Convenience init for scheduler that wraps one of the global concurrent dispatch queues.
+     
+     - parameter globalConcurrentQueueQOS: Target global dispatch queue, by quality of service class.
+     */
+    @available(iOS 8, OSX 10.10, *)
+    public convenience init(globalConcurrentQueueQOS: DispatchQueueSchedulerQOS, leeway: DispatchTimeInterval = DispatchTimeInterval.nanoseconds(0)) {
+        let priority = globalConcurrentQueueQOS.qos
+        self.init(queue: DispatchQueue(
+            label: "rxswift.queue.\(globalConcurrentQueueQOS)",
+            qos: priority,
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
             attributes: [DispatchQueue.Attributes.concurrent],
             target: nil),
             leeway: leeway

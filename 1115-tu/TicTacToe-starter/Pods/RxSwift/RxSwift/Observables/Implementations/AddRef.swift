@@ -1,6 +1,10 @@
 //
 //  AddRef.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Junior B. on 30/10/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -11,8 +15,13 @@ import Foundation
 class AddRefSink<O: ObserverType> : Sink<O>, ObserverType {
     typealias Element = O.E
     
+<<<<<<< HEAD
     override init(observer: O, cancel: Cancelable) {
         super.init(observer: observer, cancel: cancel)
+=======
+    override init(observer: O) {
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func on(_ event: Event<Element>) {
@@ -37,11 +46,20 @@ class AddRef<Element> : Producer<Element> {
         _refCount = refCount
     }
     
+<<<<<<< HEAD
     override func run<O: ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == Element {
         let releaseDisposable = _refCount.retain()
         let sink = AddRefSink(observer: observer, cancel: cancel)
         let subscription = Disposables.create(releaseDisposable, _source.subscribeSafe(sink))
 
         return (sink: sink, subscription: subscription)
+=======
+    override func run<O: ObserverType>(_ observer: O) -> Disposable where O.E == Element {
+        let releaseDisposable = _refCount.retain()
+        let sink = AddRefSink(observer: observer)
+        sink.disposable = Disposables.create(releaseDisposable, _source.subscribeSafe(sink))
+
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }

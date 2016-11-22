@@ -1,6 +1,10 @@
 //
 //  Switch.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 3/12/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -25,13 +29,22 @@ class SwitchSink<SourceType, S: ObservableConvertibleType, O: ObserverType>
     fileprivate var _latest = 0
     fileprivate var _hasLatest = false
     
+<<<<<<< HEAD
     override init(observer: O, cancel: Cancelable) {
         super.init(observer: observer, cancel: cancel)
+=======
+    override init(observer: O) {
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func run(_ source: Observable<SourceType>) -> Disposable {
         let subscription = source.subscribe(self)
+<<<<<<< HEAD
         _subscriptions.setDisposable(subscription)
+=======
+        _subscriptions.disposable = subscription
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         return Disposables.create(_subscriptions, _innerSubscription)
     }
     
@@ -57,7 +70,11 @@ class SwitchSink<SourceType, S: ObservableConvertibleType, O: ObserverType>
                    
                 let observer = SwitchSinkIter(parent: self, id: latest, _self: d)
                 let disposable = observable.subscribe(observer)
+<<<<<<< HEAD
                 d.setDisposable(disposable)
+=======
+                d.disposable = disposable
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
             }
             catch let error {
                 forwardOn(.error(error))
@@ -134,8 +151,13 @@ class SwitchSinkIter<SourceType, S: ObservableConvertibleType, O: ObserverType>
 // MARK: Specializations
 
 final class SwitchIdentitySink<S: ObservableConvertibleType, O: ObserverType> : SwitchSink<S, S, O> where O.E == S.E {
+<<<<<<< HEAD
     override init(observer: O, cancel: Cancelable) {
         super.init(observer: observer, cancel: cancel)
+=======
+    override init(observer: O) {
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 
     override func performMap(_ element: S) throws -> S {
@@ -148,9 +170,15 @@ final class MapSwitchSink<SourceType, S: ObservableConvertibleType, O: ObserverT
 
     fileprivate let _selector: Selector
 
+<<<<<<< HEAD
     init(selector: @escaping Selector, observer: O, cancel: Cancelable) {
         _selector = selector
         super.init(observer: observer, cancel: cancel)
+=======
+    init(selector: @escaping Selector, observer: O) {
+        _selector = selector
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 
     override func performMap(_ element: SourceType) throws -> S {
@@ -167,10 +195,17 @@ final class Switch<S: ObservableConvertibleType> : Producer<S.E> {
         _source = source
     }
     
+<<<<<<< HEAD
     override func run<O : ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == S.E {
         let sink = SwitchIdentitySink<S, O>(observer: observer, cancel: cancel)
         let subscription = sink.run(_source)
         return (sink: sink, subscription: subscription)
+=======
+    override func run<O : ObserverType>(_ observer: O) -> Disposable where O.E == S.E {
+        let sink = SwitchIdentitySink<S, O>(observer: observer)
+        sink.disposable = sink.run(_source)
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }
 
@@ -185,9 +220,16 @@ final class FlatMapLatest<SourceType, S: ObservableConvertibleType> : Producer<S
         _selector = selector
     }
 
+<<<<<<< HEAD
     override func run<O : ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == S.E {
         let sink = MapSwitchSink<SourceType, S, O>(selector: _selector, observer: observer, cancel: cancel)
         let subscription = sink.run(_source)
         return (sink: sink, subscription: subscription)
+=======
+    override func run<O : ObserverType>(_ observer: O) -> Disposable where O.E == S.E {
+        let sink = MapSwitchSink<SourceType, S, O>(selector: _selector, observer: observer)
+        sink.disposable = sink.run(_source)
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }

@@ -1,6 +1,10 @@
 //
 //  DisposeBag.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 3/25/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -9,9 +13,17 @@
 import Foundation
 
 extension Disposable {
+<<<<<<< HEAD
     /// Adds `self` to `bag`.
     ///
     /// - parameter bag: `DisposeBag` to add `self` to.
+=======
+    /**
+    Adds `self` to `bag`.
+    
+    - parameter bag: `DisposeBag` to add `self` to.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func addDisposableTo(_ bag: DisposeBag) {
         bag.insert(self)
     }
@@ -37,14 +49,38 @@ public final class DisposeBag: DisposeBase {
     private var _disposables = [Disposable]()
     private var _isDisposed = false
     
+<<<<<<< HEAD
     /// Constructs new empty dispose bag.
+=======
+    /**
+    Constructs new empty dispose bag.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public override init() {
         super.init()
     }
     
+<<<<<<< HEAD
     /// Adds `disposable` to be disposed when dispose bag is being deinited.
     ///
     /// - parameter disposable: Disposable to add.
+=======
+    /**
+    Adds `disposable` to be disposed when dispose bag is being deinited.
+    
+    - parameter disposable: Disposable to add.
+    */
+    @available(*, deprecated, renamed: "insert(_:)")
+    public func addDisposable(_ disposable: Disposable) {
+        insert(disposable)
+    }
+    
+    /**
+     Adds `disposable` to be disposed when dispose bag is being deinited.
+     
+     - parameter disposable: Disposable to add.
+     */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func insert(_ disposable: Disposable) {
         _insert(disposable)?.dispose()
     }
@@ -60,7 +96,13 @@ public final class DisposeBag: DisposeBase {
         return nil
     }
 
+<<<<<<< HEAD
     /// This is internal on purpose, take a look at `CompositeDisposable` instead.
+=======
+    /**
+    This is internal on purpose, take a look at `CompositeDisposable` instead.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     private func dispose() {
         let oldDisposables = _dispose()
 

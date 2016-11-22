@@ -8,9 +8,17 @@
 
 import Foundation
 
+<<<<<<< HEAD
 /// Represents an object that is both an observable sequence as well as an observer.
 ///
 /// Each notification is broadcasted to all subscribed and future observers, subject to buffer trimming policies.
+=======
+/**
+Represents an object that is both an observable sequence as well as an observer.
+
+Each notification is broadcasted to all subscribed and future observers, subject to buffer trimming policies.
+*/
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 public class ReplaySubject<Element>
     : Observable<Element>
     , SubjectType
@@ -18,7 +26,13 @@ public class ReplaySubject<Element>
     , Disposable {
     public typealias SubjectObserverType = ReplaySubject<Element>
     
+<<<<<<< HEAD
     /// Indicates whether the subject has any observers
+=======
+    /**
+     Indicates whether the subject has any observers
+     */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public var hasObservers: Bool {
         _lock.lock(); defer { _lock.unlock() }
         return _observers.count > 0
@@ -37,18 +51,33 @@ public class ReplaySubject<Element>
         abstractMethod()
     }
     
+<<<<<<< HEAD
     /// Notifies all subscribed observers about next event.
     ///
     /// - parameter event: Event to send to the observers.
+=======
+    /**
+    Notifies all subscribed observers about next event.
+    
+    - parameter event: Event to send to the observers.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func on(_ event: Event<E>) {
         abstractMethod()
     }
     
+<<<<<<< HEAD
     /// Returns observer interface for subject.
+=======
+    /**
+    Returns observer interface for subject.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func asObserver() -> SubjectObserverType {
         return self
     }
     
+<<<<<<< HEAD
     /// Unsubscribe all observers and release resources.
     public func dispose() {
     }
@@ -57,6 +86,20 @@ public class ReplaySubject<Element>
     ///
     /// - parameter bufferSize: Maximal number of elements to replay to observer after subscription.
     /// - returns: New instance of replay subject.
+=======
+    /**
+    Unsubscribe all observers and release resources.
+    */
+    public func dispose() {
+    }
+
+    /**
+    Creates new instance of `ReplaySubject` that replays at most `bufferSize` last elements of sequence.
+    
+    - parameter bufferSize: Maximal number of elements to replay to observer after subscription.
+    - returns: New instance of replay subject.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public static func create(bufferSize: Int) -> ReplaySubject<Element> {
         if bufferSize == 1 {
             return ReplayOne()
@@ -66,9 +109,17 @@ public class ReplaySubject<Element>
         }
     }
 
+<<<<<<< HEAD
     /// Creates a new instance of `ReplaySubject` that buffers all the elements of a sequence.
     /// To avoid filling up memory, developer needs to make sure that the use case will only ever store a 'reasonable'
     /// number of elements.
+=======
+    /**
+    Creates a new instance of `ReplaySubject` that buffers all the elements of a sequence.
+    To avoid filling up memory, developer needs to make sure that the use case will only ever store a 'reasonable'
+    number of elements.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public static func createUnbounded() -> ReplaySubject<Element> {
         return ReplayAll()
     }
@@ -91,6 +142,7 @@ class ReplayBufferBase<Element>
     }
     
     override func on(_ event: Event<Element>) {
+<<<<<<< HEAD
         _synchronized_on(event).on(event)
     }
 
@@ -102,12 +154,26 @@ class ReplayBufferBase<Element>
         
         if _stoppedEvent != nil {
             return Bag()
+=======
+        _lock.lock(); defer { _lock.unlock() }
+        _synchronized_on(event)
+    }
+
+    func _synchronized_on(_ event: Event<E>) {
+        if _isDisposed {
+            return
+        }
+        
+        if _stoppedEvent != nil {
+            return
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         }
         
         switch event {
         case .next(let value):
             addValueToBuffer(value)
             trim()
+<<<<<<< HEAD
             return _observers
         case .error, .completed:
             _stoppedEvent = event
@@ -115,6 +181,14 @@ class ReplayBufferBase<Element>
             let observers = _observers
             _observers.removeAll()
             return observers
+=======
+            _observers.on(event)
+        case .error, .completed:
+            _stoppedEvent = event
+            trim()
+            _observers.on(event)
+            _observers.removeAll()
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         }
     }
     

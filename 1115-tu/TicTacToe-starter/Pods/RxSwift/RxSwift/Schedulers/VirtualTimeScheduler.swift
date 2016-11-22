@@ -1,6 +1,10 @@
 //
 //  VirtualTimeScheduler.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 2/14/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -8,9 +12,18 @@
 
 import Foundation
 
+<<<<<<< HEAD
 /// Base class for virtual time schedulers using a priority queue for scheduled items.
 open class VirtualTimeScheduler<Converter: VirtualTimeConverterType>
     : SchedulerType {
+=======
+/**
+Base class for virtual time schedulers using a priority queue for scheduled items.
+*/
+open class VirtualTimeScheduler<Converter: VirtualTimeConverterType>
+    : SchedulerType
+    , CustomDebugStringConvertible {
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 
     public typealias VirtualTime = Converter.VirtualTimeUnit
     public typealias VirtualTimeInterval = Converter.VirtualTimeIntervalUnit
@@ -24,19 +37,39 @@ open class VirtualTimeScheduler<Converter: VirtualTimeConverterType>
 
     private var _nextId = 0
 
+<<<<<<< HEAD
     /// - returns: Current time.
+=======
+    /**
+    - returns: Current time.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public var now: RxTime {
         return _converter.convertFromVirtualTime(clock)
     }
 
+<<<<<<< HEAD
     /// - returns: Scheduler's absolute time clock value.
+=======
+    /**
+    - returns: Scheduler's absolute time clock value.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public var clock: VirtualTime {
         return _clock
     }
 
+<<<<<<< HEAD
     /// Creates a new virtual time scheduler.
     ///
     /// - parameter initialClock: Initial value for the clock.
+=======
+    /**
+     Creates a new virtual time scheduler.
+     
+     - parameter initialClock: Initial value for the clock.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public init(initialClock: VirtualTime, converter: Converter) {
         _clock = initialClock
         _running = false
@@ -50,9 +83,15 @@ open class VirtualTimeScheduler<Converter: VirtualTimeConverterType>
             case .greaterThan:
                 return false
             }
+<<<<<<< HEAD
         }, isEqual: { $0 === $1 })
         #if TRACE_RESOURCES
             let _ = Resources.incrementTotal()
+=======
+        })
+        #if TRACE_RESOURCES
+            let _ = AtomicIncrement(&resourceCount)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         #endif
     }
 
@@ -124,12 +163,24 @@ open class VirtualTimeScheduler<Converter: VirtualTimeConverterType>
         return compositeDisposable
     }
 
+<<<<<<< HEAD
     /// Adjusts time of scheduling before adding item to schedule queue.
+=======
+    /**
+    Adjusts time of scheduling before adding item to schedule queue.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     open func adjustScheduledTime(_ time: Converter.VirtualTimeUnit) -> Converter.VirtualTimeUnit {
         return time
     }
 
+<<<<<<< HEAD
     /// Starts the virtual time scheduler.
+=======
+    /**
+    Starts the virtual time scheduler.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func start() {
         MainScheduler.ensureExecutingOnScheduler()
 
@@ -167,9 +218,17 @@ open class VirtualTimeScheduler<Converter: VirtualTimeConverterType>
         return nil
     }
 
+<<<<<<< HEAD
     /// Advances the scheduler's clock to the specified time, running all work till that point.
     ///
     /// - parameter virtualTime: Absolute time to advance the scheduler's clock to.
+=======
+    /**
+     Advances the scheduler's clock to the specified time, running all work till that point.
+     
+     - parameter virtualTime: Absolute time to advance the scheduler's clock to.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func advanceTo(_ virtualTime: VirtualTime) {
         MainScheduler.ensureExecutingOnScheduler()
 
@@ -199,7 +258,13 @@ open class VirtualTimeScheduler<Converter: VirtualTimeConverterType>
         _running = false
     }
 
+<<<<<<< HEAD
     /// Advances the scheduler's clock by the specified relative time.
+=======
+    /**
+    Advances the scheduler's clock by the specified relative time.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func sleep(_ virtualInterval: VirtualTimeInterval) {
         MainScheduler.ensureExecutingOnScheduler()
 
@@ -211,7 +276,13 @@ open class VirtualTimeScheduler<Converter: VirtualTimeConverterType>
         _clock = sleepTo
     }
 
+<<<<<<< HEAD
     /// Stops the virtual time scheduler.
+=======
+    /**
+    Stops the virtual time scheduler.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func stop() {
         MainScheduler.ensureExecutingOnScheduler()
 
@@ -220,15 +291,26 @@ open class VirtualTimeScheduler<Converter: VirtualTimeConverterType>
 
     #if TRACE_RESOURCES
         deinit {
+<<<<<<< HEAD
             _ = Resources.decrementTotal()
+=======
+            _ = AtomicDecrement(&resourceCount)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         }
     #endif
 }
 
 // MARK: description
 
+<<<<<<< HEAD
 extension VirtualTimeScheduler: CustomDebugStringConvertible {
     /// A textual representation of `self`, suitable for debugging.
+=======
+extension VirtualTimeScheduler {
+    /**
+    A textual representation of `self`, suitable for debugging.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public var debugDescription: String {
         return self._schedulerQueue.debugDescription
     }
@@ -255,7 +337,11 @@ class VirtualSchedulerItem<Time>
     }
 
     func invoke() {
+<<<<<<< HEAD
          self.disposable.setDisposable(action())
+=======
+         self.disposable.disposable = action()
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func dispose() {

@@ -1,6 +1,10 @@
 //
 //  Do.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 2/21/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -14,9 +18,15 @@ class DoSink<O: ObserverType> : Sink<O>, ObserverType {
     
     private let _parent: Parent
     
+<<<<<<< HEAD
     init(parent: Parent, observer: O, cancel: Cancelable) {
         _parent = parent
         super.init(observer: observer, cancel: cancel)
+=======
+    init(parent: Parent, observer: O) {
+        _parent = parent
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func on(_ event: Event<Element>) {
@@ -49,6 +59,7 @@ class Do<Element> : Producer<Element> {
         _onDispose = onDispose
     }
     
+<<<<<<< HEAD
     override func run<O: ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == Element {
         _onSubscribe?()
         let sink = DoSink(parent: self, observer: observer, cancel: cancel)
@@ -59,5 +70,17 @@ class Do<Element> : Producer<Element> {
             onDispose?()
         }
         return (sink: sink, subscription: allSubscriptions)
+=======
+    override func run<O: ObserverType>(_ observer: O) -> Disposable where O.E == Element {
+        _onSubscribe?()
+        let sink = DoSink(parent: self, observer: observer)
+        let subscription = _source.subscribe(sink)
+        let onDispose = _onDispose
+        sink.disposable = Disposables.create {
+            subscription.dispose()
+            onDispose?()
+        }
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }

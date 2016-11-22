@@ -1,6 +1,10 @@
 //
 //  Buffer.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 9/13/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -22,10 +26,17 @@ class BufferTimeCount<Element> : Producer<[Element]> {
         _scheduler = scheduler
     }
     
+<<<<<<< HEAD
     override func run<O : ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == [Element] {
         let sink = BufferTimeCountSink(parent: self, observer: observer, cancel: cancel)
         let subscription = sink.run()
         return (sink: sink, subscription: subscription)
+=======
+    override func run<O : ObserverType>(_ observer: O) -> Disposable where O.E == [Element] {
+        let sink = BufferTimeCountSink(parent: self, observer: observer)
+        sink.disposable = sink.run()
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }
 
@@ -46,9 +57,15 @@ class BufferTimeCountSink<Element, O: ObserverType>
     private var _buffer = [Element]()
     private var _windowID = 0
     
+<<<<<<< HEAD
     init(parent: Parent, observer: O, cancel: Cancelable) {
         _parent = parent
         super.init(observer: observer, cancel: cancel)
+=======
+    init(parent: Parent, observer: O) {
+        _parent = parent
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
  
     func run() -> Disposable {
@@ -104,7 +121,11 @@ class BufferTimeCountSink<Element, O: ObserverType>
         
         _timerD.disposable = nextTimer
 
+<<<<<<< HEAD
         let disposable = _parent._scheduler.scheduleRelative(windowID, dueTime: _parent._timeSpan) { previousWindowID in
+=======
+        nextTimer.disposable = _parent._scheduler.scheduleRelative(windowID, dueTime: _parent._timeSpan) { previousWindowID in
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
             self._lock.performLocked {
                 if previousWindowID != self._windowID {
                     return
@@ -115,7 +136,10 @@ class BufferTimeCountSink<Element, O: ObserverType>
             
             return Disposables.create()
         }
+<<<<<<< HEAD
 
         nextTimer.setDisposable(disposable)
+=======
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }

@@ -1,6 +1,10 @@
 //
 //  Debunce.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 9/11/16.
 //  Copyright © 2016 Krunoslav Zaher. All rights reserved.
@@ -26,10 +30,17 @@ class DebounceSink<O: ObserverType>
 
     let cancellable = SerialDisposable()
 
+<<<<<<< HEAD
     init(parent: ParentType, observer: O, cancel: Cancelable) {
         _parent = parent
 
         super.init(observer: observer, cancel: cancel)
+=======
+    init(parent: ParentType, observer: O) {
+        _parent = parent
+
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 
     func run() -> Disposable {
@@ -55,7 +66,11 @@ class DebounceSink<O: ObserverType>
 
             let d = SingleAssignmentDisposable()
             self.cancellable.disposable = d
+<<<<<<< HEAD
             d.setDisposable(scheduler.scheduleRelative(currentId, dueTime: dueTime, action: self.propagate))
+=======
+            d.disposable = scheduler.scheduleRelative(currentId, dueTime: dueTime, action: self.propagate)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         case .error:
             _value = nil
             forwardOn(event)
@@ -95,10 +110,17 @@ class Debounce<Element> : Producer<Element> {
         _scheduler = scheduler
     }
 
+<<<<<<< HEAD
     override func run<O: ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == Element {
         let sink = DebounceSink(parent: self, observer: observer, cancel: cancel)
         let subscription = sink.run()
         return (sink: sink, subscription: subscription)
+=======
+    override func run<O: ObserverType>(_ observer: O) -> Disposable where O.E == Element {
+        let sink = DebounceSink(parent: self, observer: observer)
+        sink.disposable = sink.run()
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
 }

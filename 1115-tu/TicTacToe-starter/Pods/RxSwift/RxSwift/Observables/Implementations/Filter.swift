@@ -1,6 +1,10 @@
 //
 //  Filter.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 2/17/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -14,9 +18,15 @@ class FilterSink<O : ObserverType>: Sink<O>, ObserverType {
     
     private let _predicate: Predicate
     
+<<<<<<< HEAD
     init(predicate: @escaping Predicate, observer: O, cancel: Cancelable) {
         _predicate = predicate
         super.init(observer: observer, cancel: cancel)
+=======
+    init(predicate: @escaping Predicate, observer: O) {
+        _predicate = predicate
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func on(_ event: Event<Element>) {
@@ -50,9 +60,16 @@ class Filter<Element> : Producer<Element> {
         _predicate = predicate
     }
     
+<<<<<<< HEAD
     override func run<O: ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == Element {
         let sink = FilterSink(predicate: _predicate, observer: observer, cancel: cancel)
         let subscription = _source.subscribe(sink)
         return (sink: sink, subscription: subscription)
+=======
+    override func run<O: ObserverType>(_ observer: O) -> Disposable where O.E == Element {
+        let sink = FilterSink(predicate: _predicate, observer: observer)
+        sink.disposable = _source.subscribe(sink)
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }

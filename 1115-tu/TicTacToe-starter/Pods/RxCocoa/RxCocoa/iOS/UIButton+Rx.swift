@@ -36,7 +36,13 @@ import UIKit
 
 extension Reactive where Base: UIButton {
 
+<<<<<<< HEAD
     /// Reactive wrapper for `PrimaryActionTriggered` control event.
+=======
+    /**
+     Reactive wrapper for `PrimaryActionTriggered` control event.
+     */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public var primaryAction: ControlEvent<Void> {
         return controlEvent(.primaryActionTriggered)
     }
@@ -54,6 +60,7 @@ extension Reactive where Base: UIButton {
     import UIKit
 
 extension Reactive where Base: UIButton {
+<<<<<<< HEAD
     
     /// Reactive wrapper for `setTitle(_:controlState:)`
     public func title(for controlState: UIControlState = []) -> UIBindingObserver<Base, String?> {
@@ -62,5 +69,15 @@ extension Reactive where Base: UIButton {
         }
     }
     
+=======
+    /**
+     Reactive wrapper for `setTitle(_:controlState:)`
+     */
+    public func title(controlState: UIControlState = []) -> AnyObserver<String?> {
+        return UIBindingObserver<UIButton, String?>(UIElement: self.base) { (button, title) -> () in
+            button.setTitle(title, for: controlState)
+        }.asObserver()
+    }
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 }
 #endif

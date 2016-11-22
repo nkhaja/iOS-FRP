@@ -1,6 +1,10 @@
 //
 //  Observable+Aggregate.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 3/22/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -24,6 +28,10 @@ extension ObservableType {
     - parameter mapResult: A function to transform the final accumulator value into the result value.
     - returns: An observable sequence containing a single element with the final accumulator value.
     */
+<<<<<<< HEAD
+=======
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func reduce<A, R>(_ seed: A, accumulator: @escaping (A, E) throws -> A, mapResult: @escaping (A) throws -> R)
         -> Observable<R> {
         return Reduce(source: self.asObservable(), seed: seed, accumulator: accumulator, mapResult: mapResult)
@@ -40,6 +48,10 @@ extension ObservableType {
     - parameter accumulator: A accumulator function to be invoked on each element.
     - returns: An observable sequence containing a single element with the final accumulator value.
     */
+<<<<<<< HEAD
+=======
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func reduce<A>(_ seed: A, accumulator: @escaping (A, E) throws -> A)
         -> Observable<A> {
         return Reduce(source: self.asObservable(), seed: seed, accumulator: accumulator, mapResult: { $0 })
@@ -54,6 +66,10 @@ extension ObservableType {
     
     - returns: An observable sequence containing all the emitted elements as array.
     */
+<<<<<<< HEAD
+=======
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func toArray()
         -> Observable<[E]> {
             return ToArray(source: self.asObservable())

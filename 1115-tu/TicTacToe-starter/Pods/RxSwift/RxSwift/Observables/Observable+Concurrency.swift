@@ -1,6 +1,10 @@
 //
 //  Observable+Concurrency.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 3/15/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -23,6 +27,10 @@ extension ObservableType {
     - parameter scheduler: Scheduler to notify observers on.
     - returns: The source sequence whose observations happen on the specified scheduler.
     */
+<<<<<<< HEAD
+=======
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func observeOn(_ scheduler: ImmediateSchedulerType)
         -> Observable<E> {
         if let scheduler = scheduler as? SerialDispatchQueueScheduler {
@@ -53,6 +61,10 @@ extension ObservableType {
     - parameter scheduler: Scheduler to perform subscription and unsubscription actions on.
     - returns: The source sequence whose subscriptions and unsubscriptions happen on the specified scheduler.
     */
+<<<<<<< HEAD
+=======
+    // @warn_unused_result(message:"http://git.io/rxs.uo")
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func subscribeOn(_ scheduler: ImmediateSchedulerType)
         -> Observable<E> {
         return SubscribeOn(source: self, scheduler: scheduler)

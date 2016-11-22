@@ -6,6 +6,7 @@
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
 //
 
+<<<<<<< HEAD
 #if !os(Linux)
 
 import Foundation
@@ -14,11 +15,17 @@ import Foundation
     #if SWIFT_PACKAGE && !os(Linux)
         import RxCocoaRuntime
     #endif
+=======
+import Foundation
+#if !RX_NO_MODULE
+import RxSwift
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 #endif
 
 var delegateAssociatedTag: UInt8 = 0
 var dataSourceAssociatedTag: UInt8 = 0
 
+<<<<<<< HEAD
 /// Base class for `DelegateProxyType` protocol.
 ///
 /// This implementation is not thread safe and can be used only from one thread (Main thread).
@@ -33,11 +40,33 @@ open class DelegateProxy : _RXDelegateProxy {
     /// Initializes new instance.
     ///
     /// - parameter parentObject: Optional parent object that owns `DelegateProxy` as associated object.
+=======
+/**
+Base class for `DelegateProxyType` protocol.
+
+This implementation is not thread safe and can be used only from one thread (Main thread).
+*/
+open class DelegateProxy : _RXDelegateProxy {
+    
+    private var subjectsForSelector = [Selector: PublishSubject<[AnyObject]>]()
+
+    /**
+    Parent object associated with delegate proxy.
+    */
+    weak private(set) var parentObject: AnyObject?
+    
+    /**
+    Initializes new instance.
+    
+    - parameter parentObject: Optional parent object that owns `DelegateProxy` as associated object.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public required init(parentObject: AnyObject) {
         self.parentObject = parentObject
         
         MainScheduler.ensureExecutingOnScheduler()
 #if TRACE_RESOURCES
+<<<<<<< HEAD
         _ = Resources.incrementTotal()
 #endif
         super.init()
@@ -45,6 +74,15 @@ open class DelegateProxy : _RXDelegateProxy {
 
     /**
     Returns observable sequence of invocations of delegate methods. Elements are sent *before method is invoked*.
+=======
+        OSAtomicIncrement32(&resourceCount)
+#endif
+        super.init()
+    }
+    
+    /**
+    Returns observable sequence of invocations of delegate methods.
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 
     Only methods that have `void` return value can be observed using this method because
      those methods are used as a notification mechanism. It doesn't matter if they are optional
@@ -85,6 +123,7 @@ open class DelegateProxy : _RXDelegateProxy {
     - parameter selector: Selector used to filter observed invocations of delegate methods.
     - returns: Observable sequence of arguments passed to `selector` method.
     */
+<<<<<<< HEAD
     open func sentMessage(_ selector: Selector) -> Observable<[Any]> {
         checkSelectorIsObservable(selector)
 
@@ -147,10 +186,24 @@ open class DelegateProxy : _RXDelegateProxy {
 
         let subject = methodInvokedForSelector[selector]
 
+=======
+    public func observe(_ selector: Selector) -> Observable<[AnyObject]> {
+        if hasWiredImplementation(for: selector) {
+            print("Delegate proxy is already implementing `\(selector)`, a more performant way of registering might exist.")
+        }
+
+        if !self.responds(to: selector) {
+            rxFatalError("This class doesn't respond to selector \(selector)")
+        }
+        
+        let subject = subjectsForSelector[selector]
+        
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         if let subject = subject {
             return subject
         }
         else {
+<<<<<<< HEAD
             let subject = PublishSubject<[Any]>()
             methodInvokedForSelector[selector] = subject
             return subject
@@ -204,20 +257,70 @@ open class DelegateProxy : _RXDelegateProxy {
     /// - parameter object: Object that can have assigned delegate proxy.
     /// - returns: Assigned delegate proxy or `nil` if no delegate proxy is assigned.
     open class func assignedProxyFor(_ object: AnyObject) -> AnyObject? {
+=======
+            let subject = PublishSubject<[AnyObject]>()
+            subjectsForSelector[selector] = subject
+            return subject
+        }
+    }
+    
+    // proxy
+    
+    open override func interceptedSelector(_ selector: Selector, withArguments arguments: [Any]) {
+        subjectsForSelector[selector]?.on(.next(arguments as [AnyObject]))
+    }
+    
+    /**
+    Returns tag used to identify associated object.
+    
+    - returns: Associated object tag.
+    */
+    public class func delegateAssociatedObjectTag() -> UnsafeRawPointer {
+        return _pointer(&delegateAssociatedTag)
+    }
+    
+    /**
+    Initializes new instance of delegate proxy.
+    
+    - returns: Initialized instance of `self`.
+    */
+    public class func createProxyForObject(_ object: AnyObject) -> AnyObject {
+        return self.init(parentObject: object)
+    }
+    
+    /**
+    Returns assigned proxy for object.
+    
+    - parameter object: Object that can have assigned delegate proxy.
+    - returns: Assigned delegate proxy or `nil` if no delegate proxy is assigned.
+    */
+    public class func assignedProxyFor(_ object: AnyObject) -> AnyObject? {
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         let maybeDelegate = objc_getAssociatedObject(object, self.delegateAssociatedObjectTag())
         return castOptionalOrFatalError(maybeDelegate.map { $0 as AnyObject })
     }
     
+<<<<<<< HEAD
     /// Assigns proxy to object.
     ///
     /// - parameter object: Object that can have assigned delegate proxy.
     /// - parameter proxy: Delegate proxy object to assign to `object`.
     open class func assignProxy(_ proxy: AnyObject, toObject object: AnyObject) {
+=======
+    /**
+    Assigns proxy to object.
+    
+    - parameter object: Object that can have assigned delegate proxy.
+    - parameter proxy: Delegate proxy object to assign to `object`.
+    */
+    public class func assignProxy(_ proxy: AnyObject, toObject object: AnyObject) {
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         precondition(proxy.isKind(of: self.classForCoder()))
        
         objc_setAssociatedObject(object, self.delegateAssociatedObjectTag(), proxy, .OBJC_ASSOCIATION_RETAIN)
     }
     
+<<<<<<< HEAD
     /// Sets reference of normal delegate that receives all forwarded messages
     /// through `self`.
     ///
@@ -232,10 +335,31 @@ open class DelegateProxy : _RXDelegateProxy {
     ///
     /// - returns: Value of reference if set or nil.
     open func forwardToDelegate() -> AnyObject? {
+=======
+    /**
+    Sets reference of normal delegate that receives all forwarded messages
+    through `self`.
+    
+    - parameter forwardToDelegate: Reference of delegate that receives all messages through `self`.
+    - parameter retainDelegate: Should `self` retain `forwardToDelegate`.
+    */
+    public func setForwardToDelegate(_ delegate: AnyObject?, retainDelegate: Bool) {
+        self._setForward(toDelegate: delegate, retainDelegate: retainDelegate)
+    }
+   
+    /**
+    Returns reference of normal delegate that receives all forwarded messages
+    through `self`.
+    
+    - returns: Value of reference if set or nil.
+    */
+    public func forwardToDelegate() -> AnyObject? {
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         return self._forwardToDelegate
     }
     
     deinit {
+<<<<<<< HEAD
         for v in sentMessageForSelector.values {
             v.on(.completed)
         }
@@ -244,6 +368,13 @@ open class DelegateProxy : _RXDelegateProxy {
         }
 #if TRACE_RESOURCES
         _ = Resources.decrementTotal()
+=======
+        for v in subjectsForSelector.values {
+            v.on(.completed)
+        }
+#if TRACE_RESOURCES
+        OSAtomicDecrement32(&resourceCount)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 #endif
     }
 
@@ -253,6 +384,9 @@ open class DelegateProxy : _RXDelegateProxy {
         return p
     }
 }
+<<<<<<< HEAD
 
 #endif
 
+=======
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5

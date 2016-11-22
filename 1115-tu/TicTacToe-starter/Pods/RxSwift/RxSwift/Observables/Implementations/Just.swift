@@ -1,6 +1,10 @@
 //
 //  Just.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 8/30/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -13,9 +17,15 @@ class JustScheduledSink<O: ObserverType> : Sink<O> {
 
     private let _parent: Parent
 
+<<<<<<< HEAD
     init(parent: Parent, observer: O, cancel: Cancelable) {
         _parent = parent
         super.init(observer: observer, cancel: cancel)
+=======
+    init(parent: Parent, observer: O) {
+        _parent = parent
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 
     func run() -> Disposable {
@@ -39,10 +49,17 @@ class JustScheduled<Element> : Producer<Element> {
         _element = element
     }
 
+<<<<<<< HEAD
     override func run<O : ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == E {
         let sink = JustScheduledSink(parent: self, observer: observer, cancel: cancel)
         let subscription = sink.run()
         return (sink: sink, subscription: subscription)
+=======
+    override func subscribe<O : ObserverType>(_ observer: O) -> Disposable where O.E == E {
+        let sink = JustScheduledSink(parent: self, observer: observer)
+        sink.disposable = sink.run()
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }
 

@@ -18,9 +18,15 @@ class TakeWhileSink<ElementType, O: ObserverType>
 
     fileprivate var _running = true
 
+<<<<<<< HEAD
     init(parent: Parent, observer: O, cancel: Cancelable) {
         _parent = parent
         super.init(observer: observer, cancel: cancel)
+=======
+    init(parent: Parent, observer: O) {
+        _parent = parent
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func on(_ event: Event<Element>) {
@@ -63,9 +69,15 @@ class TakeWhileSinkWithIndex<ElementType, O: ObserverType>
     fileprivate var _running = true
     fileprivate var _index = 0
     
+<<<<<<< HEAD
     init(parent: Parent, observer: O, cancel: Cancelable) {
         _parent = parent
         super.init(observer: observer, cancel: cancel)
+=======
+    init(parent: Parent, observer: O) {
+        _parent = parent
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func on(_ event: Event<Element>) {
@@ -118,6 +130,7 @@ class TakeWhile<Element>: Producer<Element> {
         _predicateWithIndex = predicate
     }
     
+<<<<<<< HEAD
     override func run<O : ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == Element {
         if let _ = _predicate {
             let sink = TakeWhileSink(parent: self, observer: observer, cancel: cancel)
@@ -127,6 +140,17 @@ class TakeWhile<Element>: Producer<Element> {
             let sink = TakeWhileSinkWithIndex(parent: self, observer: observer, cancel: cancel)
             let subscription = _source.subscribe(sink)
             return (sink: sink, subscription: subscription)
+=======
+    override func run<O : ObserverType>(_ observer: O) -> Disposable where O.E == Element {
+        if let _ = _predicate {
+            let sink = TakeWhileSink(parent: self, observer: observer)
+            sink.disposable = _source.subscribe(sink)
+            return sink
+        } else {
+            let sink = TakeWhileSinkWithIndex(parent: self, observer: observer)
+            sink.disposable = _source.subscribe(sink)
+            return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         }
     }
 }

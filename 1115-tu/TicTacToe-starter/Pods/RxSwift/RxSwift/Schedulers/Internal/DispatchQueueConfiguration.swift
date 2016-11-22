@@ -1,13 +1,20 @@
 //
 //  DispatchQueueConfiguration.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 7/23/16.
 //  Copyright © 2016 Krunoslav Zaher. All rights reserved.
 //
 
 import Foundation
+<<<<<<< HEAD
 import Dispatch
+=======
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 
 struct DispatchQueueConfiguration {
     let queue: DispatchQueue
@@ -31,7 +38,11 @@ extension DispatchQueueConfiguration {
             }
 
 
+<<<<<<< HEAD
             cancel.setDisposable(action(state))
+=======
+            cancel.disposable = action(state)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         }
 
         return cancel

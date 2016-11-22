@@ -1,6 +1,10 @@
 //
 //  Producer.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 2/20/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -15,6 +19,7 @@ class Producer<Element> : Observable<Element> {
     
     override func subscribe<O : ObserverType>(_ observer: O) -> Disposable where O.E == Element {
         if !CurrentThreadScheduler.isScheduleRequired {
+<<<<<<< HEAD
             // The returned disposable needs to release all references once it was disposed.
             let disposer = SinkDisposer()
             let sinkAndSubscription = run(observer, cancel: disposer)
@@ -29,10 +34,18 @@ class Producer<Element> : Observable<Element> {
                 disposer.setSinkAndSubscription(sink: sinkAndSubscription.sink, subscription: sinkAndSubscription.subscription)
 
                 return disposer
+=======
+            return run(observer)
+        }
+        else {
+            return CurrentThreadScheduler.instance.schedule(()) { _ in
+                return self.run(observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
             }
         }
     }
     
+<<<<<<< HEAD
     func run<O : ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == Element {
         abstractMethod()
     }
@@ -117,3 +130,9 @@ fileprivate class SinkDisposer: Cancelable {
         }
     }
 }
+=======
+    func run<O : ObserverType>(_ observer: O) -> Disposable where O.E == Element {
+        abstractMethod()
+    }
+}
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5

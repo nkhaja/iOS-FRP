@@ -1,6 +1,10 @@
 //
 //  UIGestureRecognizer+Rx.swift
+<<<<<<< HEAD
 //  RxCocoa
+=======
+//  Touches
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Carlos García on 10/6/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -53,7 +57,13 @@ class GestureTarget<Recognizer: UIGestureRecognizer>: RxTarget {
 
 extension Reactive where Base: UIGestureRecognizer {
     
+<<<<<<< HEAD
     /// Reactive wrapper for gesture recognizer events.
+=======
+    /**
+    Reactive wrapper for gesture recognizer events.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public var event: ControlEvent<Base> {
         let source: Observable<Base> = Observable.create { [weak control = self.base] observer in
             MainScheduler.ensureExecutingOnScheduler()

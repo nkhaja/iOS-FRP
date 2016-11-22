@@ -1,6 +1,10 @@
 //
 //  PublishSubject.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 2/11/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -8,9 +12,17 @@
 
 import Foundation
 
+<<<<<<< HEAD
 /// Represents an object that is both an observable sequence as well as an observer.
 ///
 /// Each notification is broadcasted to all subscribed observers.
+=======
+/**
+Represents an object that is both an observable sequence as well as an observer.
+
+Each notification is broadcasted to all subscribed observers.
+*/
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 final public class PublishSubject<Element>
     : Observable<Element>
     , SubjectType
@@ -21,7 +33,13 @@ final public class PublishSubject<Element>
     
     typealias DisposeKey = Bag<AnyObserver<Element>>.KeyType
     
+<<<<<<< HEAD
     /// Indicates whether the subject has any observers
+=======
+    /**
+     Indicates whether the subject has any observers
+     */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public var hasObservers: Bool {
         _lock.lock(); defer { _lock.unlock() }
         return _observers.count > 0
@@ -35,16 +53,29 @@ final public class PublishSubject<Element>
     private var _stopped = false
     private var _stoppedEvent = nil as Event<Element>?
     
+<<<<<<< HEAD
     /// Indicates whether the subject has been isDisposed.
+=======
+    /**
+    Indicates whether the subject has been isDisposed.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public var isDisposed: Bool {
         return _isDisposed
     }
     
+<<<<<<< HEAD
     /// Creates a subject.
+=======
+    /**
+    Creates a subject.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public override init() {
         super.init()
     }
     
+<<<<<<< HEAD
     /// Notifies all subscribed observers about next event.
     ///
     /// - parameter event: Event to send to the observers.
@@ -62,16 +93,42 @@ final public class PublishSubject<Element>
             }
             
             return _observers
+=======
+    /**
+    Notifies all subscribed observers about next event.
+    
+    - parameter event: Event to send to the observers.
+    */
+    public func on(_ event: Event<Element>) {
+        _lock.lock(); defer { _lock.unlock() }
+        _synchronized_on(event)
+    }
+
+    func _synchronized_on(_ event: Event<E>) {
+        switch event {
+        case .next(_):
+            if _isDisposed || _stopped {
+                return
+            }
+            
+            _observers.on(event)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         case .completed, .error:
             if _stoppedEvent == nil {
                 _stoppedEvent = event
                 _stopped = true
+<<<<<<< HEAD
                 let observers = _observers
                 _observers.removeAll()
                 return observers
             }
 
             return Bag()
+=======
+                _observers.on(event)
+                _observers.removeAll()
+            }
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         }
     }
     
@@ -110,12 +167,24 @@ final public class PublishSubject<Element>
         _ = _observers.removeKey(disposeKey)
     }
     
+<<<<<<< HEAD
     /// Returns observer interface for subject.
+=======
+    /**
+    Returns observer interface for subject.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func asObserver() -> PublishSubject<Element> {
         return self
     }
     
+<<<<<<< HEAD
     /// Unsubscribe all observers and release resources.
+=======
+    /**
+    Unsubscribe all observers and release resources.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func dispose() {
         _lock.lock(); defer { _lock.unlock() }
         _synchronized_dispose()

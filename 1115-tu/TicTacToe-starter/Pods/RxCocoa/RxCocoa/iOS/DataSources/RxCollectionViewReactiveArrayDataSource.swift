@@ -72,7 +72,11 @@ class RxCollectionViewReactiveArrayDataSource<Element>
         return itemModels?[index]
     }
 
+<<<<<<< HEAD
     func model(at indexPath: IndexPath) throws -> Any {
+=======
+    func model(_ indexPath: IndexPath) throws -> Any {
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         precondition(indexPath.section == 0)
         guard let item = itemModels?[indexPath.item] else {
             throw RxCocoaError.itemsNotYetBound(object: self)

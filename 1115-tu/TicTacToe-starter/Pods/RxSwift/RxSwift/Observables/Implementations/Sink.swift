@@ -1,6 +1,10 @@
 //
 //  Sink.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 2/19/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -8,6 +12,7 @@
 
 import Foundation
 
+<<<<<<< HEAD
 class Sink<O : ObserverType> : Disposable {
     fileprivate let _observer: O
     fileprivate let _cancel: Cancelable
@@ -24,6 +29,20 @@ class Sink<O : ObserverType> : Disposable {
     
     final func forwardOn(_ event: Event<O.E>) {
         if _disposed {
+=======
+class Sink<O : ObserverType> : SingleAssignmentDisposable {
+    fileprivate let _observer: O
+
+    init(observer: O) {
+#if TRACE_RESOURCES
+        let _ = AtomicIncrement(&resourceCount)
+#endif
+        _observer = observer
+    }
+    
+    final func forwardOn(_ event: Event<O.E>) {
+        if isDisposed {
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
             return
         }
         _observer.on(event)
@@ -33,6 +52,7 @@ class Sink<O : ObserverType> : Disposable {
         return SinkForward(forward: self)
     }
 
+<<<<<<< HEAD
     var disposed: Bool {
         return _disposed
     }
@@ -45,6 +65,11 @@ class Sink<O : ObserverType> : Disposable {
     deinit {
 #if TRACE_RESOURCES
        let _ =  Resources.decrementTotal()
+=======
+    deinit {
+#if TRACE_RESOURCES
+       let _ =  AtomicDecrement(&resourceCount)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 #endif
     }
 }
@@ -64,7 +89,11 @@ class SinkForward<O: ObserverType>: ObserverType {
             _forward._observer.on(event)
         case .error, .completed:
             _forward._observer.on(event)
+<<<<<<< HEAD
             _forward._cancel.dispose()
+=======
+            _forward.dispose()
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         }
     }
 }

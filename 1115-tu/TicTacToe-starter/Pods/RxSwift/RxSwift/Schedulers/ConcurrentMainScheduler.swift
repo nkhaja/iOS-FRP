@@ -1,13 +1,20 @@
 //
 //  ConcurrentMainScheduler.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 10/17/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
 //
 
 import Foundation
+<<<<<<< HEAD
 import Dispatch
+=======
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 
 /**
 Abstracts work that needs to be performed on `MainThread`. In case `schedule` methods are called from main thread, it will perform action immediately without scheduling.
@@ -22,7 +29,13 @@ public final class ConcurrentMainScheduler : SchedulerType {
     private let _mainScheduler: MainScheduler
     private let _mainQueue: DispatchQueue
 
+<<<<<<< HEAD
     /// - returns: Current time.
+=======
+    /**
+    - returns: Current time.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public var now : Date {
         return _mainScheduler.now as Date
     }
@@ -32,7 +45,13 @@ public final class ConcurrentMainScheduler : SchedulerType {
         _mainScheduler = mainScheduler
     }
 
+<<<<<<< HEAD
     /// Singleton instance of `ConcurrentMainScheduler`
+=======
+    /**
+    Singleton instance of `ConcurrentMainScheduler`
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public static let instance = ConcurrentMainScheduler(mainScheduler: MainScheduler.instance)
 
     /**
@@ -43,7 +62,11 @@ public final class ConcurrentMainScheduler : SchedulerType {
     - returns: The disposable object used to cancel the scheduled action (best effort).
     */
     public func schedule<StateType>(_ state: StateType, action: @escaping (StateType) -> Disposable) -> Disposable {
+<<<<<<< HEAD
         if DispatchQueue.isMain {
+=======
+        if Thread.current.isMainThread {
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
             return action(state)
         }
 
@@ -54,7 +77,11 @@ public final class ConcurrentMainScheduler : SchedulerType {
                 return
             }
 
+<<<<<<< HEAD
             cancel.setDisposable(action(state))
+=======
+            cancel.disposable = action(state)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
         }
 
         return cancel

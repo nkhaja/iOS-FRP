@@ -1,6 +1,10 @@
 //
 //  Multicast.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 2/27/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -15,9 +19,15 @@ class MulticastSink<S: SubjectType, O: ObserverType>: Sink<O>, ObserverType {
     
     private let _parent: MutlicastType
     
+<<<<<<< HEAD
     init(parent: MutlicastType, observer: O, cancel: Cancelable) {
         _parent = parent
         super.init(observer: observer, cancel: cancel)
+=======
+    init(parent: MutlicastType, observer: O) {
+        _parent = parent
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func run() -> Disposable {
@@ -63,9 +73,16 @@ class Multicast<S: SubjectType, R>: Producer<R> {
         _selector = selector
     }
     
+<<<<<<< HEAD
     override func run<O: ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == R {
         let sink = MulticastSink(parent: self, observer: observer, cancel: cancel)
         let subscription = sink.run()
         return (sink: sink, subscription: subscription)
+=======
+    override func run<O: ObserverType>(_ observer: O) -> Disposable where O.E == R {
+        let sink = MulticastSink(parent: self, observer: observer)
+        sink.disposable = sink.run()
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }

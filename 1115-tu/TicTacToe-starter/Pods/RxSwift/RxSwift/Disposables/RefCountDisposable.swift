@@ -1,6 +1,10 @@
 //
 //  RefCountDisposable.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Junior B. on 10/29/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -8,20 +12,38 @@
 
 import Foundation
 
+<<<<<<< HEAD
 /// Represents a disposable resource that only disposes its underlying disposable resource when all dependent disposable objects have been disposed.
+=======
+/**
+    Represents a disposable resource that only disposes its underlying disposable resource when all dependent disposable objects have been disposed.
+ */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 public final class RefCountDisposable : DisposeBase, Cancelable {
     private var _lock = SpinLock()
     private var _disposable = nil as Disposable?
     private var _primaryDisposed = false
     private var _count = 0
 
+<<<<<<< HEAD
     /// - returns: Was resource disposed.
+=======
+    /**
+     - returns: Was resource disposed.
+     */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public var isDisposed: Bool {
         _lock.lock(); defer { _lock.unlock() }
         return _disposable == nil
     }
 
+<<<<<<< HEAD
     /// Initializes a new instance of the `RefCountDisposable`.
+=======
+    /**
+     Initializes a new instance of the `RefCountDisposable`.
+     */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public init(disposable: Disposable) {
         _disposable = disposable
         super.init()
@@ -49,7 +71,13 @@ public final class RefCountDisposable : DisposeBase, Cancelable {
         }
     }
 
+<<<<<<< HEAD
     /// Disposes the underlying disposable only when all dependent disposables have been disposed.
+=======
+    /**
+     Disposes the underlying disposable only when all dependent disposables have been disposed.
+     */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func dispose() {
         let oldDisposable: Disposable? = _lock.calculateLocked {
             if let oldDisposable = _disposable, !_primaryDisposed

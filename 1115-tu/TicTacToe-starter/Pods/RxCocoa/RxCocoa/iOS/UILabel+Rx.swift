@@ -16,6 +16,7 @@ import UIKit
 
 extension Reactive where Base: UILabel {
     
+<<<<<<< HEAD
     /// Bindable sink for `text` property.
     public var text: UIBindingObserver<Base, String?> {
         return UIBindingObserver(UIElement: self.base) { label, text in
@@ -28,6 +29,24 @@ extension Reactive where Base: UILabel {
         return UIBindingObserver(UIElement: self.base) { label, text in
             label.attributedText = text
         }
+=======
+    /**
+    Bindable sink for `text` property.
+    */
+    public var text: AnyObserver<String?> {
+        return UIBindingObserver(UIElement: self.base) { label, text in
+            label.text = text
+        }.asObserver()
+    }
+
+    /**
+    Bindable sink for `attributedText` property.
+    */
+    public var attributedText: AnyObserver<NSAttributedString?> {
+        return UIBindingObserver(UIElement: self.base) { label, text in
+            label.attributedText = text
+        }.asObserver()
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
 }

@@ -1,6 +1,10 @@
 //
 //  CompositeDisposable.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 2/20/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -8,6 +12,7 @@
 
 import Foundation
 
+<<<<<<< HEAD
 /// Represents a group of disposable resources that are disposed together.
 public final class CompositeDisposable : DisposeBase, Disposable, Cancelable {
     /// Key used to remove disposable from composite disposable
@@ -18,6 +23,14 @@ public final class CompositeDisposable : DisposeBase, Disposable, Cancelable {
         }
     }
 
+=======
+/**
+Represents a group of disposable resources that are disposed together.
+*/
+public final class CompositeDisposable : DisposeBase, Disposable, Cancelable {
+    public typealias DisposeKey = Bag<Disposable>.KeyType
+    
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     private var _lock = SpinLock()
     
     // state
@@ -31,14 +44,26 @@ public final class CompositeDisposable : DisposeBase, Disposable, Cancelable {
     public override init() {
     }
     
+<<<<<<< HEAD
     /// Initializes a new instance of composite disposable with the specified number of disposables.
+=======
+    /**
+     Initializes a new instance of composite disposable with the specified number of disposables.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public init(_ disposable1: Disposable, _ disposable2: Disposable) {
         // This overload is here to make sure we are using optimized version up to 4 arguments.
         let _ = _disposables!.insert(disposable1)
         let _ = _disposables!.insert(disposable2)
     }
     
+<<<<<<< HEAD
     /// Initializes a new instance of composite disposable with the specified number of disposables.
+=======
+    /**
+     Initializes a new instance of composite disposable with the specified number of disposables.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public init(_ disposable1: Disposable, _ disposable2: Disposable, _ disposable3: Disposable) {
         // This overload is here to make sure we are using optimized version up to 4 arguments.
         let _ = _disposables!.insert(disposable1)
@@ -46,7 +71,13 @@ public final class CompositeDisposable : DisposeBase, Disposable, Cancelable {
         let _ = _disposables!.insert(disposable3)
     }
     
+<<<<<<< HEAD
     /// Initializes a new instance of composite disposable with the specified number of disposables.
+=======
+    /**
+     Initializes a new instance of composite disposable with the specified number of disposables.
+     */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public init(_ disposable1: Disposable, _ disposable2: Disposable, _ disposable3: Disposable, _ disposable4: Disposable, _ disposables: Disposable...) {
         // This overload is here to make sure we are using optimized version up to 4 arguments.
         let _ = _disposables!.insert(disposable1)
@@ -59,7 +90,13 @@ public final class CompositeDisposable : DisposeBase, Disposable, Cancelable {
         }
     }
     
+<<<<<<< HEAD
     /// Initializes a new instance of composite disposable with the specified number of disposables.
+=======
+    /**
+     Initializes a new instance of composite disposable with the specified number of disposables.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public init(disposables: [Disposable]) {
         for disposable in disposables {
             let _ = _disposables!.insert(disposable)
@@ -67,6 +104,21 @@ public final class CompositeDisposable : DisposeBase, Disposable, Cancelable {
     }
 
     /**
+<<<<<<< HEAD
+=======
+    Adds a disposable to the CompositeDisposable or disposes the disposable if the CompositeDisposable is disposed.
+    
+    - parameter disposable: Disposable to add.
+    - returns: Key that can be used to remove disposable from composite disposable. In case dispose bag was already
+        disposed `nil` will be returned.
+    */
+    @available(*, deprecated, renamed: "insert(_:)")
+    public func addDisposable(_ disposable: Disposable) -> DisposeKey? {
+        return insert(disposable)
+    }
+    
+    /**
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
      Adds a disposable to the CompositeDisposable or disposes the disposable if the CompositeDisposable is disposed.
      
      - parameter disposable: Disposable to add.
@@ -86,29 +138,65 @@ public final class CompositeDisposable : DisposeBase, Disposable, Cancelable {
     private func _insert(_ disposable: Disposable) -> DisposeKey? {
         _lock.lock(); defer { _lock.unlock() }
 
+<<<<<<< HEAD
         let bagKey = _disposables?.insert(disposable)
         return bagKey.map(DisposeKey.init)
     }
     
     /// - returns: Gets the number of disposables contained in the `CompositeDisposable`.
+=======
+        return _disposables?.insert(disposable)
+    }
+    
+    /**
+    - returns: Gets the number of disposables contained in the `CompositeDisposable`.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public var count: Int {
         _lock.lock(); defer { _lock.unlock() }
         return _disposables?.count ?? 0
     }
     
+<<<<<<< HEAD
     /// Removes and disposes the disposable identified by `disposeKey` from the CompositeDisposable.
     ///
     /// - parameter disposeKey: Key used to identify disposable to be removed.
+=======
+    /**
+     Removes and disposes the disposable identified by `disposeKey` from the CompositeDisposable.
+     
+     - parameter disposeKey: Key used to identify disposable to be removed.
+     */
+    @available(*, deprecated, renamed: "remove(for:)")
+    public func removeDisposable(_ disposeKey: DisposeKey) {
+        remove(for: disposeKey)
+    }
+    
+    /**
+     Removes and disposes the disposable identified by `disposeKey` from the CompositeDisposable.
+     
+     - parameter disposeKey: Key used to identify disposable to be removed.
+     */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func remove(for disposeKey: DisposeKey) {
         _remove(for: disposeKey)?.dispose()
     }
     
     private func _remove(for disposeKey: DisposeKey) -> Disposable? {
         _lock.lock(); defer { _lock.unlock() }
+<<<<<<< HEAD
         return _disposables?.removeKey(disposeKey.key)
     }
     
     /// Disposes all disposables in the group and removes them from the group.
+=======
+        return _disposables?.removeKey(disposeKey)
+    }
+    
+    /**
+    Disposes all disposables in the group and removes them from the group.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     public func dispose() {
         if let disposables = _dispose() {
             disposeAll(in: disposables)
@@ -124,6 +212,7 @@ public final class CompositeDisposable : DisposeBase, Disposable, Cancelable {
         return disposeBag
     }
 }
+<<<<<<< HEAD
 
 extension Disposables {
 
@@ -151,3 +240,5 @@ extension Disposables {
         }
     }
 }
+=======
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5

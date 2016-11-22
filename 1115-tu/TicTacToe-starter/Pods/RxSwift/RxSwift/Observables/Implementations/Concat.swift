@@ -1,6 +1,10 @@
 //
 //  Concat.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 3/21/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -14,8 +18,13 @@ class ConcatSink<S: Sequence, O: ObserverType>
     , ObserverType where S.Iterator.Element : ObservableConvertibleType, S.Iterator.Element.E == O.E {
     typealias Element = O.E
     
+<<<<<<< HEAD
     override init(observer: O, cancel: Cancelable) {
         super.init(observer: observer, cancel: cancel)
+=======
+    override init(observer: O) {
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func on(_ event: Event<Element>){
@@ -55,9 +64,16 @@ class Concat<S: Sequence> : Producer<S.Iterator.Element.E> where S.Iterator.Elem
         _count = count
     }
     
+<<<<<<< HEAD
     override func run<O: ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == Element {
         let sink = ConcatSink<S, O>(observer: observer, cancel: cancel)
         let subscription = sink.run((_sources.makeIterator(), _count))
         return (sink: sink, subscription: subscription)
+=======
+    override func run<O: ObserverType>(_ observer: O) -> Disposable where O.E == Element {
+        let sink = ConcatSink<S, O>(observer: observer)
+        sink.disposable = sink.run((_sources.makeIterator(), _count))
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }

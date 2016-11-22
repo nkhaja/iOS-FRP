@@ -13,9 +13,15 @@ class DeferredSink<S: ObservableType, O: ObserverType> : Sink<O>, ObserverType w
 
     private let _observableFactory: () throws -> S
 
+<<<<<<< HEAD
     init(observableFactory: @escaping () throws -> S, observer: O, cancel: Cancelable) {
         _observableFactory = observableFactory
         super.init(observer: observer, cancel: cancel)
+=======
+    init(observableFactory: @escaping () throws -> S, observer: O) {
+        _observableFactory = observableFactory
+        super.init(observer: observer)
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
     
     func run() -> Disposable {
@@ -53,9 +59,16 @@ class Deferred<S: ObservableType> : Producer<S.E> {
         _observableFactory = observableFactory
     }
     
+<<<<<<< HEAD
     override func run<O: ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == S.E {
         let sink = DeferredSink(observableFactory: _observableFactory, observer: observer, cancel: cancel)
         let subscription = sink.run()
         return (sink: sink, subscription: subscription)
+=======
+    override func run<O: ObserverType>(_ observer: O) -> Disposable where O.E == S.E {
+        let sink = DeferredSink(observableFactory: _observableFactory, observer: observer)
+        sink.disposable = sink.run()
+        return sink
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     }
 }

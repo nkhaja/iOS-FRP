@@ -1,6 +1,10 @@
 //
 //  SchedulerType.swift
+<<<<<<< HEAD
 //  RxSwift
+=======
+//  Rx
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
 //
 //  Created by Krunoslav Zaher on 2/8/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -8,6 +12,7 @@
 
 import Foundation
 
+<<<<<<< HEAD
 // Type that represents time interval in the context of RxSwift.
 public typealias RxTimeInterval = TimeInterval
 
@@ -18,6 +23,26 @@ public typealias RxTime = Date
 public protocol SchedulerType: ImmediateSchedulerType {
 
     /// - returns: Current time.
+=======
+/**
+Type that represents time interval in the context of RxSwift.
+*/
+public typealias RxTimeInterval = TimeInterval
+
+/**
+Type that represents absolute time in the context of RxSwift.
+*/
+public typealias RxTime = Date
+
+/**
+Represents an object that schedules units of work.
+*/
+public protocol SchedulerType: ImmediateSchedulerType {
+
+    /**
+    - returns: Current time.
+    */
+>>>>>>> 3cd23538aef0a97d0cb9d6a6347598c5f2cd57e5
     var now : RxTime {
         get
     }
