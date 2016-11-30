@@ -29,19 +29,24 @@ class RxGitHubAPI {
     }
     
     func getUser(for userSearch: String) -> Observable<User?> {
+       
         guard let url: URL = url(for: .user(userSearch))
             
         else {
             return Observable<User?>.just(nil)
         }
         
-        print(url)
         
         let jsonObservable: Observable<Any> = URLSession.shared.rx.json(url: url)
         
         let userInfoObservable: Observable<[String:Any]?> = jsonObservable.map { (json: Any) in
+            
+            print("here we go")
+            print(json as? [String:Any])
             return (json as? [String: Any])
         }
+        
+      
         
         let userObservable: Observable<User?> = userInfoObservable.map{ (userInfo:[String:Any]?) in
             if let userInfo = userInfo{
@@ -52,8 +57,34 @@ class RxGitHubAPI {
         return userObservable.observeOn(MainScheduler.instance).catchErrorJustReturn(nil)
     }
     
-
+    func getRepos(user:User) -> Observable<Repository>{
+        guard let url: URL = url(for: .repos(user))
+        else{
+            return Observable<Repository>.just(nil)
+        }
+        
+        let jsonObservable: Observable<Any> = URLSession.shared.rx.json(url: url)
+        
+        let repoInfoObservable: Observable<[String:Any]?> = jsonObservable.map { (json: Any) in
+            print("here we repo!")
+            print(json as? [String:Any])
+            return (json as? [String: Any])
+        }
+        
+        let repoObservable: Observable<User?> = userInfoObservable.map{ (userInfo:[String:Any]?) in
+            if let userInfo = repoInfo{
+                return self.jsonToRepo(json: repoInfo)
+            }
+            return nil
+        }
+        return userObservable.observeOn(MainScheduler.instance).catchErrorJustReturn(nil)
+        
+    }
     
+
+
+
+
     
     
     
@@ -118,12 +149,12 @@ class RxGitHubAPI {
                 urlString = urlString + "?access_token=" + RxGitHubAPI.userAccessToken
             }
         case .repos(let user):
-            urlString = urlString + "/users/" + user.login + "/repos"
+            urlString = urlString + "/users/" + user.login! + "/repos"
             if RxGitHubAPI.userAccessToken.characters.count > 0 {
                 urlString = urlString + "?access_token=" + RxGitHubAPI.userAccessToken
             }
         case .issues(let user, let repository):
-            urlString = urlString + "/repos/" + user.login + "/" + String(repository.name) + "/issues?state=all"
+            urlString = urlString + "/repos/" + user.login! + "/" + String(repository.name) + "/issues?state=all"
             if RxGitHubAPI.userAccessToken.characters.count > 0 {
                 urlString = urlString + "&access_token=" + RxGitHubAPI.userAccessToken
             }
@@ -134,14 +165,56 @@ class RxGitHubAPI {
     
     // MARK: Helpers
     func jsonToUser(json: [String:Any]) -> User? {
-        print(json)
-        return User(identifier: 0, login: "cheese", name: "cheese:", email: "cheese@cheese.com")
+        var name:String? = "not found"
+        var numRepos:Int? = 0
+        var login: String? = "not found"
+        var identifier:Int? = 0
+        var email:String? = "not found"
+        var type:String? = ""
+        
+        if let nameData = json["name"]{
+            name = nameData as? String
+        }
+        
+        if let numReposData = json["public_repos"]{
+             numRepos = numReposData as? Int
+        }
+        
+        if let loginData = json["login"]{
+             login = loginData as? String
+        }
+        
+        if let identifierData = json["id"]{
+             identifier = identifierData as? Int
+        }
+        
+        if let emailData = json["email"]{
+            email = emailData as? String
+        }
+        
+        if let typeData = json["type"]{
+            type = typeData as? String
+        }
+        
+        let newUser = User(identifier: identifier, login: login, name: name, email: email, numRepos: numRepos, type:type)
+        
+        
+        
+        return newUser
+        
+    }
+    
+    func jsonToRepo(json: [Any]) -> [Repository?]{
+        var allRepos:[Repository] = []
+        for r in json {
+            let repoData = r as? [String:Any]
+            let newRepo: Repository = Repository(json:repoData!)
+            if newRepo.name != nil{
+                allRepos.append(newRepo)
+            }
+        }
     }
 
-    
-    
-    
-    
 }
 
 

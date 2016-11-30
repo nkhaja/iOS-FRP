@@ -77,16 +77,67 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gGv-Bg-iZ5">
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="seeRepositoriesButton:" destination="bzA-Bl-1fd" eventType="touchUpInside" id="Gsy-Pc-IjL"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0Y-HW-TSa">
+                                <frame key="frameInset" minX="163" minY="459" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gGv-Bg-iZ5" firstAttribute="leading" secondItem="P8P-6v-NwT" secondAttribute="leading" id="56L-Fd-9m3"/>
+                            <constraint firstAttribute="trailing" secondItem="gGv-Bg-iZ5" secondAttribute="trailing" id="YVf-Tm-eWQ"/>
+                            <constraint firstItem="6fM-1S-dF0" firstAttribute="top" secondItem="gGv-Bg-iZ5" secondAttribute="bottom" constant="266" id="nVv-dd-hXF"/>
+                        </constraints>
                     </view>
                     <connections>
+                        <outlet property="avatarImageView" destination="IPM-H3-okF" id="BiK-d7-e75"/>
+                        <outlet property="githubNameLabel" destination="wHc-YE-8aG" id="xgk-OF-hUB"/>
+                        <outlet property="numReposLabel" destination="R6d-VT-7QU" id="WRp-0Q-B4R"/>
+                        <outlet property="repoLabel" destination="Q0Y-HW-TSa" id="EUD-Tw-Jqf"/>
                         <outlet property="searchTextField" destination="oQd-7P-Ac3" id="cv0-ZU-nHe"/>
+                        <segue destination="Qax-97-C4G" kind="show" identifier="seeRepos" id="1WP-rJ-oVW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8f6-PG-dFR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1733.5999999999999" y="122.78860569715144"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="W5q-R9-Flk">
+            <objects>
+                <tableViewController id="Qax-97-C4G" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="lth-6b-BdM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="9aO-8W-0nJ">
+                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9aO-8W-0nJ" id="p6Y-HF-VdL">
+                                    <frame key="frameInset" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Qax-97-C4G" id="UOH-Pl-DvX"/>
+                            <outlet property="delegate" destination="Qax-97-C4G" id="HKo-Rb-au5"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ay4-WU-p8a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2545" y="123"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="E0D-uy-qtn">

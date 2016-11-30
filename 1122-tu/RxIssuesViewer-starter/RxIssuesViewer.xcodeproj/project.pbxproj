@@ -21,6 +21,7 @@
 		551AA3181DE4B67700FE1895 /* String+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551AA3171DE4B67700FE1895 /* String+Util.swift */; };
 		551AA31A1DE4B69400FE1895 /* Sequence+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551AA3191DE4B69400FE1895 /* Sequence+Util.swift */; };
 		BD7B2D441DE4C9FF0021DA36 /* SearchUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7B2D431DE4C9FF0021DA36 /* SearchUserViewController.swift */; };
+		BDBB6C431DEE0D52003458A0 /* SeeReposTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBB6C421DEE0D52003458A0 /* SeeReposTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		896DDA1DA193B652DB3A5639 /* Pods-RxIssuesViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxIssuesViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RxIssuesViewer/Pods-RxIssuesViewer.debug.xcconfig"; sourceTree = "<group>"; };
 		8A8AECF97102CE620537F968 /* Pods_RxIssuesViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxIssuesViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD7B2D431DE4C9FF0021DA36 /* SearchUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchUserViewController.swift; sourceTree = "<group>"; };
+		BDBB6C421DEE0D52003458A0 /* SeeReposTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeeReposTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 				551AA2F31DE3DFBB00FE1895 /* ViewController.swift */,
 				551AA2F51DE3DFBB00FE1895 /* Main.storyboard */,
 				BD7B2D431DE4C9FF0021DA36 /* SearchUserViewController.swift */,
+				BDBB6C421DEE0D52003458A0 /* SeeReposTableViewController.swift */,
 				551AA2F81DE3DFBB00FE1895 /* Assets.xcassets */,
 				551AA2FA1DE3DFBB00FE1895 /* LaunchScreen.storyboard */,
 				551AA2FD1DE3DFBB00FE1895 /* Info.plist */,
@@ -269,6 +272,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDBB6C431DEE0D52003458A0 /* SeeReposTableViewController.swift in Sources */,
 				551AA31A1DE4B69400FE1895 /* Sequence+Util.swift in Sources */,
 				551AA30A1DE3E54900FE1895 /* LoginViewController.swift in Sources */,
 				551AA3111DE404A300FE1895 /* Issue.swift in Sources */,

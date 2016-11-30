@@ -14,23 +14,19 @@ import RxCocoa
 class SearchUserViewController: UIViewController {
 
     @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var githubNameLabel: UILabel!
+    @IBOutlet weak var numReposLabel: UILabel!
+    @IBOutlet weak var avatarImageView: UIImageView!
+    
+    @IBOutlet weak var repoLabel: UILabel!
+    
     let rxGitHub = RxGitHubAPI()
+    let disposeBag = DisposeBag()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupObservers()
-        
-        /*let userObservable: Observable<User?> =  searchTextField.rx.text.asObservable().throttle(3, scheduler:MainScheduler.instance).flatMapLatest{
-            (searchText:String?) -> Observable<User?> in
-            
-            return self.rxGithub.getUser(for: searchText!)
-            
-            } */
-        
- 
-
-        // Do any additional setup after loading the view.
     }
     
     func setupObservers(){
@@ -41,9 +37,59 @@ class SearchUserViewController: UIViewController {
             return self.rxGitHub.getUser(for: searchText!)
         }
         
-        userObservable.subscribe {
-            print($0)a
+        userObservable.map{ (user: User?) in
+            return user?.login ?? ""
+        }.bindTo(githubNameLabel.rx.text).addDisposableTo(disposeBag)
+        
+        
+        userObservable.map{ (user: User?) in
+            if let user = user{
+                return String(describing: user.numRepos!)
+            }
+            else{
+                
+                return ""
+            }
+            }.bindTo(numReposLabel.rx.text).addDisposableTo(disposeBag)
+        
+        let repoObservable: Observable<[Repository]> = userObservable.map { (user:User?) in
+            if let user = user{
+                return rxGitHub.getRepos(user: user)
+            }
+        }.bindTo(repoLabel.rx.text).addDisposableTo(disposeBag)
+    }
+    
+        
+//        userObservable.map{ (user: User?) in
+//            if let user = user{
+//                if user.type == "User"{
+//                    return UIImage(named: "user")!
+//                }
+//                else if user.type == "Organization"{
+//                    return UIImage(named: "organization")!
+//                }
+//            }
+//            
+//            else{
+//                return UIImage(named: "user")!
+//            }
+//            }.bindTo(avatarImageView.rx.image).addDisposableTo(disposeBag)
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "seeRepos"{
+            if let seeReposVc = segue.destination as? SeeReposTableViewController{
+                
+                
+            }
         }
     }
+    
+    @IBAction func seeRepositoriesButton(_ sender: AnyObject) {
+        repos
+        
+        performSegue(withIdentifier: "seeRepos", sender: self)
+    }
+    
 
 }
