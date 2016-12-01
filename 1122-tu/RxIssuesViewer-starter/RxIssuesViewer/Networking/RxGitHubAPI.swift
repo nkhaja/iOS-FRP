@@ -57,27 +57,26 @@ class RxGitHubAPI {
         return userObservable.observeOn(MainScheduler.instance).catchErrorJustReturn(nil)
     }
     
-    func getRepos(user:User) -> Observable<Repository>{
+    func getRepos(user:User) -> Observable<[Repository]?>{
         guard let url: URL = url(for: .repos(user))
         else{
-            return Observable<Repository>.just(nil)
+            return Observable<[Repository]?>.just(nil)
         }
         
         let jsonObservable: Observable<Any> = URLSession.shared.rx.json(url: url)
         
-        let repoInfoObservable: Observable<[String:Any]?> = jsonObservable.map { (json: Any) in
-            print("here we repo!")
-            print(json as? [String:Any])
-            return (json as? [String: Any])
+        let repoInfoObservable: Observable<[Any]?> = jsonObservable.map { (json: Any) in
+
+            return (json as? [Any])
         }
         
-        let repoObservable: Observable<User?> = userInfoObservable.map{ (userInfo:[String:Any]?) in
-            if let userInfo = repoInfo{
+        let repoObservable: Observable<[Repository]?> = repoInfoObservable.map{ (repoInfo:[Any]?) in
+            if let repoInfo = repoInfo {
                 return self.jsonToRepo(json: repoInfo)
             }
             return nil
         }
-        return userObservable.observeOn(MainScheduler.instance).catchErrorJustReturn(nil)
+        return repoObservable.observeOn(MainScheduler.instance).catchErrorJustReturn(nil)
         
     }
     
@@ -154,7 +153,7 @@ class RxGitHubAPI {
                 urlString = urlString + "?access_token=" + RxGitHubAPI.userAccessToken
             }
         case .issues(let user, let repository):
-            urlString = urlString + "/repos/" + user.login! + "/" + String(repository.name) + "/issues?state=all"
+            urlString = urlString + "/repos/" + user.login! + "/" + String(describing: repository.name) + "/issues?state=all"
             if RxGitHubAPI.userAccessToken.characters.count > 0 {
                 urlString = urlString + "&access_token=" + RxGitHubAPI.userAccessToken
             }
@@ -204,8 +203,9 @@ class RxGitHubAPI {
         
     }
     
-    func jsonToRepo(json: [Any]) -> [Repository?]{
+    func jsonToRepo(json: [Any]) -> [Repository]{
         var allRepos:[Repository] = []
+        
         for r in json {
             let repoData = r as? [String:Any]
             let newRepo: Repository = Repository(json:repoData!)
@@ -213,6 +213,7 @@ class RxGitHubAPI {
                 allRepos.append(newRepo)
             }
         }
+        return allRepos
     }
 
 }

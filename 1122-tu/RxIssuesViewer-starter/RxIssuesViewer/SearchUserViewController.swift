@@ -86,8 +86,6 @@ class SearchUserViewController: UIViewController {
     }
     
     @IBAction func seeRepositoriesButton(_ sender: AnyObject) {
-        repos
-        
         performSegue(withIdentifier: "seeRepos", sender: self)
     }
     
