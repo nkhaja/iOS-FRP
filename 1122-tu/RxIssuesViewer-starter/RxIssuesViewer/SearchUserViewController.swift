@@ -22,6 +22,7 @@ class SearchUserViewController: UIViewController {
     
     let rxGitHub = RxGitHubAPI()
     let disposeBag = DisposeBag()
+    var thisUser:User?
 
     
     override func viewDidLoad() {
@@ -44,6 +45,7 @@ class SearchUserViewController: UIViewController {
         
         userObservable.map{ (user: User?) in
             if let user = user{
+                self.thisUser = user
                 return String(describing: user.numRepos!)
             }
             else{
@@ -52,11 +54,18 @@ class SearchUserViewController: UIViewController {
             }
             }.bindTo(numReposLabel.rx.text).addDisposableTo(disposeBag)
         
-        let repoObservable: Observable<[Repository]> = userObservable.map { (user:User?) in
-            if let user = user{
-                return rxGitHub.getRepos(user: user)
-            }
-        }.bindTo(repoLabel.rx.text).addDisposableTo(disposeBag)
+        
+        
+//        
+//        let repoObservable: Observable<[Repository]?> = userObservable.map { (user:User?) in
+//            if let user = user{
+//                return self.rxGitHub.getRepos(user: user)
+//            }
+//            
+//            else{
+//                return []
+//            }
+//        }
     }
     
         
@@ -78,8 +87,8 @@ class SearchUserViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "seeRepos"{
-            if let seeReposVc = segue.destination as? SeeReposTableViewController{
-                
+            if let seeReposVc = segue.destination as? SeeReposViewController{
+                seeReposVc.user = self.thisUser
                 
             }
         }

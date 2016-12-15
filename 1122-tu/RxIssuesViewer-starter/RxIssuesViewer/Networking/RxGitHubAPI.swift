@@ -57,10 +57,10 @@ class RxGitHubAPI {
         return userObservable.observeOn(MainScheduler.instance).catchErrorJustReturn(nil)
     }
     
-    func getRepos(user:User) -> Observable<[Repository]?>{
+    func getRepos(user:User) -> Observable<[Repository]>{
         guard let url: URL = url(for: .repos(user))
         else{
-            return Observable<[Repository]?>.just(nil)
+            return Observable<[Repository]>.just([])
         }
         
         let jsonObservable: Observable<Any> = URLSession.shared.rx.json(url: url)
@@ -70,13 +70,13 @@ class RxGitHubAPI {
             return (json as? [Any])
         }
         
-        let repoObservable: Observable<[Repository]?> = repoInfoObservable.map{ (repoInfo:[Any]?) in
+        let repoObservable: Observable<[Repository]> = repoInfoObservable.map{ (repoInfo:[Any]?) in
             if let repoInfo = repoInfo {
                 return self.jsonToRepo(json: repoInfo)
             }
-            return nil
+            return []
         }
-        return repoObservable.observeOn(MainScheduler.instance).catchErrorJustReturn(nil)
+        return repoObservable.observeOn(MainScheduler.instance).catchErrorJustReturn([])
         
     }
     
